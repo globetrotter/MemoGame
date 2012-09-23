@@ -1,2 +1,4 @@
-First commit.
-Memo Game Reloaded.
+MemoGame
+========
+
+MemoGame

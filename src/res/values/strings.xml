@@ -1,7 +1,0 @@
-<resources>
-
-    <string name="app_name">MemoGame</string>
-    <string name="title_game_detail">Game Detail</string>
-    <string name="title_game_list">Games</string>
-
-</resources>
