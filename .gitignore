@@ -41,4 +41,6 @@ ehthumbs.db
 Thumbs.db
 
 source/bin/classes/org/tony/play/memogame/*.*
+source\bin\classes\org\tony\play\memogame\*.*
+
 

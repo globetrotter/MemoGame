@@ -8,38 +8,60 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 public class ImageAdapter extends BaseAdapter {
-    private Context context;
+	
+	// a matrix elkeszitese a kepekkel es ures helyekkel a jatek komplexisa szerint
 
-    public ImageAdapter(Context c) {
-        context = c;
-    }
+	private static final String DIFF_EASY = "easy";
+	private static final String DIFF_NORMAL = "normal";
+	private static final String DIFF_HARD = "hard";
+	
+	private Context context;
+	private int tileCount;
+	private String difficulty = DIFF_NORMAL;
 
-    public int getCount() {
-        return 16;
-    }
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
+	}
 
-    public Object getItem(int position) {
-        return null;
-    }
+	public ImageAdapter(Context c) {
+		context = c;
+	}
 
-    public long getItemId(int position) {
-        return 0;
-    }
+	public int getCount() {
+		if (DIFF_HARD.equals(difficulty)) {
+			tileCount = 42;
+		}
+		if (DIFF_NORMAL.equals(difficulty)) {
+			tileCount = 30;
+		}
+		if (DIFF_EASY.equals(difficulty)) {
+			tileCount = 16;
+		}
+		return tileCount;
+	}
 
-    // create a new ImageView for each item referenced by the Adapter
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
-            imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
-        } else {
-            imageView = (ImageView) convertView;
-        }
+	public Object getItem(int position) {
+		return null;
+	}
 
-        imageView.setImageResource(R.drawable.ic_launcher);
-        return imageView;
-    }
+	public long getItemId(int position) {
+		return 0;
+	}
+
+	// create a new ImageView for each item referenced by the Adapter
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ImageView imageView;
+		if (convertView == null) { // if it's not recycled, initialize some
+									// attributes
+			imageView = new ImageView(context);
+			imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			imageView.setPadding(8, 8, 8, 8);
+		} else {
+			imageView = (ImageView) convertView;
+		}
+		imageView.setImageResource(R.drawable.ic_launcher);
+		return imageView;
+	}
 
 }
