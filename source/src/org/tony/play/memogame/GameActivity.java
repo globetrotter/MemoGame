@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +18,68 @@ import android.widget.ImageView;
 
 public class GameActivity extends Activity {
 
+	private static final String DIFF_EASY = "easy";
+	private static final String DIFF_NORMAL = "normal";
+	private static final String DIFF_HARD = "hard";
+
+	private static final int TILE_COUNT_EASY = 12;
+	private static final int TILE_COUNT_NORMAL = 30;
+	private static final int TILE_COUNT_HARD = 42;
+	
 	private String gameDifficulty = "normal";
+	private int trackSolvedTiles = TILE_COUNT_NORMAL; 
+	private MatrixContent matrixContent;
+
+	private int previousTile = 0;
+	private int currentTile = 0;
+	private ImageView previousView;
+	private ImageView currentView;
+	
+
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			GridView gridview = (GridView) findViewById(R.id.gameGridView);
+			ImageAdapter imageAdapter = (ImageAdapter) gridview.getAdapter();
+
+			if (previousTile == currentTile) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				currentView.setImageDrawable(null);
+				previousView.setImageDrawable(null);
+				
+				trackSolvedTiles = trackSolvedTiles-2;
+				
+				if (trackSolvedTiles == 0) {
+					
+//					new AlertDialog.Builder((Context) msg.obj)
+//					.setMessage("Good job!")
+//					.setCancelable(false)
+//					.setPositiveButton("Yes",
+//							new DialogInterface.OnClickListener() {
+//								public void onClick(DialogInterface dialog, int id) {
+//									GameActivity.this.finish();
+//								}
+//							}).setNegativeButton("No", null).show();
+				}
+			} else {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				Resources Resources = getResources();
+				Drawable drawable = Resources
+						.getDrawable(R.drawable.ic_launcher);
+				previousView.setImageDrawable(drawable);
+				currentView.setImageDrawable(drawable);
+			}
+			previousTile = 0;
+		}
+	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,8 +87,12 @@ public class GameActivity extends Activity {
 
 		setContentView(R.layout.activity_game);
 		GridView gridview = (GridView) findViewById(R.id.gameGridView);
+		matrixContent = new MatrixContent();
+		matrixContent.generateMatrixContent(gameDifficulty);
 		ImageAdapter imageAdapter = new ImageAdapter(this);
 		imageAdapter.setDifficulty(gameDifficulty);
+		imageAdapter.setMatrixContent(matrixContent);
+
 		gridview.setAdapter(imageAdapter);
 		gridview.setBackgroundColor(getResources().getColor(
 				R.color.image_placeholder));
@@ -33,10 +100,23 @@ public class GameActivity extends Activity {
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				ImageView imageView = (ImageView) v;
-				Resources resources = getResources();
-				Drawable drawable = resources.getDrawable(R.drawable.fruits1);
-				imageView.setImageDrawable(drawable);
+				if (matrixContent.getCoverTile(gameDifficulty, position) != 0) {
+					ImageView imageView = (ImageView) v;
+					int thisTile = matrixContent.getContentAt(position);
+					Resources resources = getResources();
+					Drawable drawable = resources.getDrawable(thisTile);
+					imageView.setImageDrawable(drawable);
+					if (previousTile == 0) {
+						previousTile = thisTile;
+						previousView = imageView;
+					} else {
+						currentTile = thisTile;
+						currentView = imageView;
+						Message msg = handler.obtainMessage();
+						msg.obj = getApplicationContext();
+						handler.sendMessage(msg);
+					}
+				}
 			}
 		});
 	}
@@ -69,17 +149,22 @@ public class GameActivity extends Activity {
 		case R.id.menu_difficulty_easy:
 			gameDifficulty = "easy";
 			imageAdapter.setDifficulty(gameDifficulty);
+			trackSolvedTiles = TILE_COUNT_EASY; 
+			matrixContent.generateMatrixContent(gameDifficulty);
 			imageAdapter.notifyDataSetChanged();
-			
 			break;
 		case R.id.menu_difficulty_normal:
 			gameDifficulty = "normal";
 			imageAdapter.setDifficulty(gameDifficulty);
+			trackSolvedTiles = TILE_COUNT_NORMAL;
+			matrixContent.generateMatrixContent(gameDifficulty);
 			imageAdapter.notifyDataSetChanged();
 			break;
 		case R.id.menu_difficulty_hard:
 			gameDifficulty = "hard";
 			imageAdapter.setDifficulty(gameDifficulty);
+			trackSolvedTiles = TILE_COUNT_HARD;
+			matrixContent.generateMatrixContent(gameDifficulty);
 			imageAdapter.notifyDataSetChanged();
 			break;
 		// case R.id.menu_quit:

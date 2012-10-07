@@ -8,19 +8,15 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 public class ImageAdapter extends BaseAdapter {
-	
-	// a matrix elkeszitese a kepekkel es ures helyekkel a jatek komplexisa szerint
 
-	private static final String DIFF_EASY = "easy";
 	private static final String DIFF_NORMAL = "normal";
-	private static final String DIFF_HARD = "hard";
-	
 	private Context context;
 	private int tileCount;
-	private String difficulty = DIFF_NORMAL;
+	private String gameDifficulty = DIFF_NORMAL;
+	private MatrixContent matrixContent;
 
 	public void setDifficulty(String difficulty) {
-		this.difficulty = difficulty;
+		gameDifficulty = difficulty;
 	}
 
 	public ImageAdapter(Context c) {
@@ -28,15 +24,6 @@ public class ImageAdapter extends BaseAdapter {
 	}
 
 	public int getCount() {
-		if (DIFF_HARD.equals(difficulty)) {
-			tileCount = 42;
-		}
-		if (DIFF_NORMAL.equals(difficulty)) {
-			tileCount = 30;
-		}
-		if (DIFF_EASY.equals(difficulty)) {
-			tileCount = 16;
-		}
 		return tileCount;
 	}
 
@@ -60,8 +47,15 @@ public class ImageAdapter extends BaseAdapter {
 		} else {
 			imageView = (ImageView) convertView;
 		}
-		imageView.setImageResource(R.drawable.ic_launcher);
+
+		imageView.setImageResource(matrixContent.getCoverTile(gameDifficulty,
+				position));
 		return imageView;
+	}
+
+	public void setMatrixContent(MatrixContent matrixContent) {
+		this.matrixContent = matrixContent;
+		this.tileCount = matrixContent.getMatrixContent().length;
 	}
 
 }

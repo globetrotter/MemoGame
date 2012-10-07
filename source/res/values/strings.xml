@@ -4,9 +4,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_game">Memory Game</string>
-    <string name="menu_difficulty_easy">Game easy</string>
-    <string name="menu_difficulty_normal">Game normal</string>
-    <string name="menu_difficulty_hard">Game hard</string>
+    <string name="menu_difficulty_easy">Easy</string>
+    <string name="menu_difficulty_normal">Normal</string>
+    <string name="menu_difficulty_hard">Hard</string>
     <string name="title_activity_game_settings">GameSettingsActivity</string>
 
 </resources>

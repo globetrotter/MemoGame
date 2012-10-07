@@ -8,11 +8,11 @@
         android:id="@+id/gameGridView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:columnWidth="45dp"
+        android:columnWidth="90dp"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
         android:stretchMode="columnWidth"
-        android:numColumns="auto_fit"        
+        android:numColumns="6"        
         android:gravity="center" >
     </GridView>
 
