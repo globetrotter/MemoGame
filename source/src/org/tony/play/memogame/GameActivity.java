@@ -25,22 +25,22 @@ public class GameActivity extends Activity {
 	private static final int TILE_COUNT_EASY = 12;
 	private static final int TILE_COUNT_NORMAL = 30;
 	private static final int TILE_COUNT_HARD = 42;
-	
+
 	private String gameDifficulty = "normal";
-	private int trackSolvedTiles = TILE_COUNT_NORMAL; 
+	private int trackSolvedTiles = TILE_COUNT_NORMAL;
 	private MatrixContent matrixContent;
+	private ImageAdapter imageAdapter;
 
 	private int previousTile = 0;
 	private int currentTile = 0;
 	private ImageView previousView;
 	private ImageView currentView;
-	
+
+	private int turnedTiles;
 
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			GridView gridview = (GridView) findViewById(R.id.gameGridView);
-			ImageAdapter imageAdapter = (ImageAdapter) gridview.getAdapter();
 
 			if (previousTile == currentTile) {
 				try {
@@ -49,21 +49,43 @@ public class GameActivity extends Activity {
 					e.printStackTrace();
 				}
 				currentView.setImageDrawable(null);
+				currentView.setEnabled(false);
+				currentView.setVisibility(View.GONE);
 				previousView.setImageDrawable(null);
-				
-				trackSolvedTiles = trackSolvedTiles-2;
-				
+				previousView.setEnabled(false);
+				previousView.setVisibility(View.GONE);
+				trackSolvedTiles = trackSolvedTiles - 2;
+
 				if (trackSolvedTiles == 0) {
-					
-//					new AlertDialog.Builder((Context) msg.obj)
-//					.setMessage("Good job!")
-//					.setCancelable(false)
-//					.setPositiveButton("Yes",
-//							new DialogInterface.OnClickListener() {
-//								public void onClick(DialogInterface dialog, int id) {
-//									GameActivity.this.finish();
-//								}
-//							}).setNegativeButton("No", null).show();
+					int optimalSteps = TILE_COUNT_NORMAL
+							+ (TILE_COUNT_NORMAL / 2);
+					if (DIFF_EASY.equals(gameDifficulty)) {
+						optimalSteps = TILE_COUNT_EASY + (TILE_COUNT_EASY / 2);
+					}
+					if (DIFF_EASY.equals(DIFF_HARD)) {
+						optimalSteps = TILE_COUNT_HARD + (TILE_COUNT_HARD / 2);
+					}
+
+					new AlertDialog.Builder(GameActivity.this)
+							.setMessage(
+									"Good job! With " + turnedTiles
+											+ " turned tiles. Optimal steps: "
+											+ optimalSteps)
+							.setCancelable(false)
+							.setPositiveButton("Quit (Share)",
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog, int id) {
+											GameActivity.this.finish();
+										}
+									})
+							.setNegativeButton("Retry",
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog, int id) {
+											GameActivity.this.onStart();
+										}
+									}).show();
 				}
 			} else {
 				try {
@@ -89,7 +111,7 @@ public class GameActivity extends Activity {
 		GridView gridview = (GridView) findViewById(R.id.gameGridView);
 		matrixContent = new MatrixContent();
 		matrixContent.generateMatrixContent(gameDifficulty);
-		ImageAdapter imageAdapter = new ImageAdapter(this);
+		imageAdapter = new ImageAdapter(this);
 		imageAdapter.setDifficulty(gameDifficulty);
 		imageAdapter.setMatrixContent(matrixContent);
 
@@ -100,8 +122,10 @@ public class GameActivity extends Activity {
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				if (matrixContent.getCoverTile(gameDifficulty, position) != 0) {
-					ImageView imageView = (ImageView) v;
+
+				ImageView imageView = (ImageView) v;
+				if (imageView.getDrawable() != null) {
+					turnedTiles++;
 					int thisTile = matrixContent.getContentAt(position);
 					Resources resources = getResources();
 					Drawable drawable = resources.getDrawable(thisTile);
@@ -113,10 +137,10 @@ public class GameActivity extends Activity {
 						currentTile = thisTile;
 						currentView = imageView;
 						Message msg = handler.obtainMessage();
-						msg.obj = getApplicationContext();
 						handler.sendMessage(msg);
 					}
 				}
+
 			}
 		});
 	}
@@ -125,6 +149,30 @@ public class GameActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_game, menu);
 		return true;
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		turnedTiles = 0;
+		if (trackSolvedTiles == 0) {
+			GridView gridview = (GridView) findViewById(R.id.gameGridView);
+			imageAdapter = new ImageAdapter(this);
+			imageAdapter.setDifficulty(gameDifficulty);
+			imageAdapter.setMatrixContent(matrixContent);
+			gridview.setAdapter(imageAdapter);
+		}
+
+		trackSolvedTiles = TILE_COUNT_NORMAL;
+		if (DIFF_EASY.equals(gameDifficulty)) {
+			trackSolvedTiles = TILE_COUNT_EASY;
+		}
+		if (DIFF_HARD.equals(gameDifficulty)) {
+			trackSolvedTiles = TILE_COUNT_HARD;
+		}
+
+		matrixContent.generateMatrixContent(gameDifficulty);
+		imageAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -143,13 +191,13 @@ public class GameActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		GridView gridview = (GridView) findViewById(R.id.gameGridView);
-		ImageAdapter imageAdapter = (ImageAdapter) gridview.getAdapter();
-
+		imageAdapter = new ImageAdapter(this);
+		
 		switch (item.getItemId()) {
 		case R.id.menu_difficulty_easy:
 			gameDifficulty = "easy";
 			imageAdapter.setDifficulty(gameDifficulty);
-			trackSolvedTiles = TILE_COUNT_EASY; 
+			trackSolvedTiles = TILE_COUNT_EASY;
 			matrixContent.generateMatrixContent(gameDifficulty);
 			imageAdapter.notifyDataSetChanged();
 			break;
@@ -173,6 +221,8 @@ public class GameActivity extends Activity {
 		default:
 			break;
 		}
+		imageAdapter.setMatrixContent(matrixContent);
+		gridview.setAdapter(imageAdapter);
 		return true;
 	}
 

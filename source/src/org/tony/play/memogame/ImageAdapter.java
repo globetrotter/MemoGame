@@ -48,8 +48,12 @@ public class ImageAdapter extends BaseAdapter {
 			imageView = (ImageView) convertView;
 		}
 
-		imageView.setImageResource(matrixContent.getCoverTile(gameDifficulty,
-				position));
+		int coverTileCode = matrixContent
+				.getCoverTile(gameDifficulty, position);
+		imageView.setImageResource(coverTileCode);
+		if (coverTileCode == 0) {
+			imageView.setVisibility(View.GONE);
+		}
 		return imageView;
 	}
 
