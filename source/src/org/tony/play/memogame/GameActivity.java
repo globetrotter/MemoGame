@@ -32,6 +32,7 @@ public class GameActivity extends Activity {
 	private ImageAdapter imageAdapter;
 
 	private int previousTile = 0;
+	private int previousPosition = 0;
 	private int currentTile = 0;
 	private ImageView previousView;
 	private ImageView currentView;
@@ -133,11 +134,16 @@ public class GameActivity extends Activity {
 					if (previousTile == 0) {
 						previousTile = thisTile;
 						previousView = imageView;
+						previousPosition = position;
 					} else {
-						currentTile = thisTile;
-						currentView = imageView;
-						Message msg = handler.obtainMessage();
-						handler.sendMessage(msg);
+						if (position != previousPosition) {
+							currentTile = thisTile;
+							currentView = imageView;
+							Message msg = handler.obtainMessage();
+							handler.sendMessage(msg);
+						} else {
+							turnedTiles--;
+						}
 					}
 				}
 
@@ -192,7 +198,7 @@ public class GameActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		GridView gridview = (GridView) findViewById(R.id.gameGridView);
 		imageAdapter = new ImageAdapter(this);
-		
+
 		switch (item.getItemId()) {
 		case R.id.menu_difficulty_easy:
 			gameDifficulty = "easy";
