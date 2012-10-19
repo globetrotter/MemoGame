@@ -122,7 +122,7 @@ public class MatrixContent {
 	}
 
 	public int getCoverTile(String difficulty, int position) {
-		int cover = R.drawable.ic_launcher;
+		int cover = GameActivity.BACK_CARD;
 		if (DIFF_EASY.equals(difficulty)) {
 			if (BLANKS_EASY[position] == 0) {
 				cover = 0;

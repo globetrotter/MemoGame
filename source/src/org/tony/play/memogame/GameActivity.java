@@ -25,6 +25,8 @@ public class GameActivity extends Activity {
 	private static final int TILE_COUNT_EASY = 12;
 	private static final int TILE_COUNT_NORMAL = 30;
 	private static final int TILE_COUNT_HARD = 42;
+	
+	public static final int BACK_CARD = R.drawable.back_card_2;
 
 	private String gameDifficulty = "normal";
 	private int trackSolvedTiles = TILE_COUNT_NORMAL;
@@ -96,7 +98,7 @@ public class GameActivity extends Activity {
 				}
 				Resources Resources = getResources();
 				Drawable drawable = Resources
-						.getDrawable(R.drawable.ic_launcher);
+						.getDrawable(BACK_CARD);
 				previousView.setImageDrawable(drawable);
 				currentView.setImageDrawable(drawable);
 			}

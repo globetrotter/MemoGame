@@ -17,5 +17,5 @@
     <color name="background_main">#000000</color>
 
     <!-- Color of image view placeholder. -->
-    <color name="image_placeholder">#DDDDDD</color>
+    <color name="image_placeholder">#FFFFFF</color>
 </resources>
