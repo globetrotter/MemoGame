@@ -14,28 +14,24 @@ public class MatrixContent {
 		private static final long serialVersionUID = 22604654732086531L;
 
 		{
-			add(R.drawable.fruits1);
-			add(R.drawable.fruits2);
-			add(R.drawable.fruits3);
-			add(R.drawable.fruits4);
-			add(R.drawable.fruits5);
-			add(R.drawable.fruits6);
-			add(R.drawable.fruits7);
-			add(R.drawable.fruits8);
-			add(R.drawable.fruits9);
-			add(R.drawable.fruits10);
-			add(R.drawable.fruits11);
-			add(R.drawable.fruits12);
-			add(R.drawable.fruits13);
-			add(R.drawable.fruits14);
-			add(R.drawable.fruits15);
-			add(R.drawable.flower1);
-			add(R.drawable.flower2);
-			add(R.drawable.flower3);
-			add(R.drawable.flower4);
-			add(R.drawable.flower5);
-			add(R.drawable.flower6);
-
+			add(R.drawable.card_1);
+			add(R.drawable.card_2);
+			add(R.drawable.card_3);
+			add(R.drawable.card_4);
+			add(R.drawable.card_5);
+			add(R.drawable.card_6);
+			add(R.drawable.card_1);
+			add(R.drawable.card_2);
+			add(R.drawable.card_3);
+			add(R.drawable.card_4);
+			add(R.drawable.card_5);
+			add(R.drawable.card_6);
+			add(R.drawable.card_1);
+			add(R.drawable.card_2);
+			add(R.drawable.card_3);
+			add(R.drawable.card_4);
+			add(R.drawable.card_5);
+			add(R.drawable.card_6);			
 		}
 	};
 

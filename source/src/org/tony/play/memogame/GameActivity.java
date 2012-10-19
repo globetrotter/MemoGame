@@ -26,7 +26,7 @@ public class GameActivity extends Activity {
 	private static final int TILE_COUNT_NORMAL = 30;
 	private static final int TILE_COUNT_HARD = 42;
 	
-	public static final int BACK_CARD = R.drawable.back_card_2;
+	public static final int BACK_CARD = R.drawable.back_card;
 
 	private String gameDifficulty = "normal";
 	private int trackSolvedTiles = TILE_COUNT_NORMAL;

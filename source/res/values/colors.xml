@@ -14,8 +14,8 @@
      limitations under the License.
 -->
 <resources>
-    <color name="background_main">#000000</color>
+    <color name="background_main">#85ae00</color>
 
     <!-- Color of image view placeholder. -->
-    <color name="image_placeholder">#FFFFFF</color>
+    <color name="image_placeholder">#85ae00</color>
 </resources>
