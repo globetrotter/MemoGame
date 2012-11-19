@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.Random;
 
 public class MatrixContent {
-	private static final int ROWS = 7;
-	private static final int COLS = 6;
+	private static final int ROWS = 5;
+	private static final int COLS = 4;
 	private static final ArrayList<Integer> IMAGES = new ArrayList<Integer>() {
 		/**
 		 * 
@@ -31,7 +31,13 @@ public class MatrixContent {
 			add(R.drawable.card_3);
 			add(R.drawable.card_4);
 			add(R.drawable.card_5);
-			add(R.drawable.card_6);			
+			add(R.drawable.card_6);
+			add(R.drawable.card_1);
+			add(R.drawable.card_2);
+			add(R.drawable.card_3);
+			add(R.drawable.card_4);
+			add(R.drawable.card_5);
+			add(R.drawable.card_6);
 		}
 	};
 
@@ -39,13 +45,16 @@ public class MatrixContent {
 	private static final String DIFF_NORMAL = "normal";
 	private static final String DIFF_HARD = "hard";
 
-	private static final int TILE_COUNT_EASY = 12;
+	private static final int TILE_COUNT_EASY = 20;
 	private static final int TILE_COUNT_NORMAL = 30;
 	private static final int TILE_COUNT_HARD = 42;
 
-	private static final int[] BLANKS_EASY = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, };
+	private static final int[] BLANKS_EASY = { 
+		1, 1, 1, 1, 
+		1, 1, 1, 1, 
+		1, 1, 1, 1,
+		1, 1, 1, 1,
+		1, 1, 1, 1 };
 
 	private static final int[] BLANKS_NORMAL = { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,

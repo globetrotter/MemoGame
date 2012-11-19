@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+
 public class ImageAdapter extends BaseAdapter {
 
 	private static final String DIFF_NORMAL = "normal";
@@ -41,9 +42,8 @@ public class ImageAdapter extends BaseAdapter {
 		if (convertView == null) { // if it's not recycled, initialize some
 									// attributes
 			imageView = new ImageView(context);
-			imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setPadding(8, 8, 8, 8);
+			imageView.setPadding(1, 5, 1, 5);
+			imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
 		} else {
 			imageView = (ImageView) convertView;
 		}

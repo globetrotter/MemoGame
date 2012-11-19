@@ -12,9 +12,11 @@ public final class R {
     }
     public static final class color {
         public static final int background_main=0x7f040000;
+        public static final int black=0x7f040002;
         /**  Color of image view placeholder. 
          */
         public static final int image_placeholder=0x7f040001;
+        public static final int white=0x7f040003;
     }
     public static final class drawable {
         public static final int back_card=0x7f020000;
@@ -40,6 +42,7 @@ public final class R {
         public static final int card_9=0x7f020014;
         public static final int ic_action_search=0x7f020015;
         public static final int ic_launcher=0x7f020016;
+        public static final int layout_selector=0x7f020017;
     }
     public static final class id {
         public static final int gameGridView=0x7f080000;

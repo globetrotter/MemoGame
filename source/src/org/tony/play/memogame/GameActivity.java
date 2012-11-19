@@ -22,13 +22,13 @@ public class GameActivity extends Activity {
 	private static final String DIFF_NORMAL = "normal";
 	private static final String DIFF_HARD = "hard";
 
-	private static final int TILE_COUNT_EASY = 12;
+	private static final int TILE_COUNT_EASY = 20;
 	private static final int TILE_COUNT_NORMAL = 30;
 	private static final int TILE_COUNT_HARD = 42;
 	
 	public static final int BACK_CARD = R.drawable.back_card;
 
-	private String gameDifficulty = "normal";
+	private String gameDifficulty = "easy";
 	private int trackSolvedTiles = TILE_COUNT_NORMAL;
 	private MatrixContent matrixContent;
 	private ImageAdapter imageAdapter;
@@ -193,7 +193,7 @@ public class GameActivity extends Activity {
 							public void onClick(DialogInterface dialog, int id) {
 								GameActivity.this.finish();
 							}
-						}).setNegativeButton("No", null).show();
+						}).setNegativeButton("Nope", null).show();
 	}
 
 	@Override
