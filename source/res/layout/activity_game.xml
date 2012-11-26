@@ -1,18 +1,13 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <GridView
-        android:id="@+id/gameGridView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:numColumns="4"
-        android:verticalSpacing="2dp"
-        android:horizontalSpacing="2dp"
-        android:stretchMode="columnWidth"        
-         >
-    </GridView>
-
-</RelativeLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/game_grid_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:numColumns="3"
+    android:columnWidth="90dp"
+    android:horizontalSpacing="10dp"
+    android:verticalSpacing="10dp"
+    android:gravity="center"
+    android:stretchMode="columnWidth" >  
+ 
+</GridView>

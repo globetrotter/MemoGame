@@ -45,9 +45,8 @@ public final class R {
         public static final int layout_selector=0x7f020017;
     }
     public static final class id {
-        public static final int gameGridView=0x7f080000;
+        public static final int game_grid_view=0x7f080000;
         public static final int menu_difficulty_easy=0x7f080001;
-        public static final int menu_difficulty_hard=0x7f080003;
         public static final int menu_difficulty_normal=0x7f080002;
     }
     public static final class layout {
@@ -60,11 +59,10 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050001;
         public static final int menu_difficulty_easy=0x7f050004;
-        public static final int menu_difficulty_hard=0x7f050006;
         public static final int menu_difficulty_normal=0x7f050005;
         public static final int menu_settings=0x7f050002;
         public static final int title_activity_game=0x7f050003;
-        public static final int title_activity_game_settings=0x7f050007;
+        public static final int title_activity_game_settings=0x7f050006;
     }
     public static final class style {
         public static final int AppTheme=0x7f060000;

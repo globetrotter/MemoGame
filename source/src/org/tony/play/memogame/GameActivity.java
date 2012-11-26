@@ -22,10 +22,10 @@ public class GameActivity extends Activity {
 	private static final String DIFF_NORMAL = "normal";
 	private static final String DIFF_HARD = "hard";
 
-	private static final int TILE_COUNT_EASY = 20;
+	private static final int TILE_COUNT_EASY = 12;
 	private static final int TILE_COUNT_NORMAL = 30;
 	private static final int TILE_COUNT_HARD = 42;
-	
+
 	public static final int BACK_CARD = R.drawable.back_card;
 
 	private String gameDifficulty = "easy";
@@ -97,8 +97,7 @@ public class GameActivity extends Activity {
 					e.printStackTrace();
 				}
 				Resources Resources = getResources();
-				Drawable drawable = Resources
-						.getDrawable(BACK_CARD);
+				Drawable drawable = Resources.getDrawable(BACK_CARD);
 				previousView.setImageDrawable(drawable);
 				currentView.setImageDrawable(drawable);
 			}
@@ -111,7 +110,7 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_game);
-		GridView gridview = (GridView) findViewById(R.id.gameGridView);
+		GridView gridview = (GridView) findViewById(R.id.game_grid_view);
 		matrixContent = new MatrixContent();
 		matrixContent.generateMatrixContent(gameDifficulty);
 		imageAdapter = new ImageAdapter(this);
@@ -164,7 +163,7 @@ public class GameActivity extends Activity {
 		super.onStart();
 		turnedTiles = 0;
 		if (trackSolvedTiles == 0) {
-			GridView gridview = (GridView) findViewById(R.id.gameGridView);
+			GridView gridview = (GridView) findViewById(R.id.game_grid_view);
 			imageAdapter = new ImageAdapter(this);
 			imageAdapter.setDifficulty(gameDifficulty);
 			imageAdapter.setMatrixContent(matrixContent);
@@ -198,7 +197,7 @@ public class GameActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		GridView gridview = (GridView) findViewById(R.id.gameGridView);
+		GridView gridview = (GridView) findViewById(R.id.game_grid_view);
 		imageAdapter = new ImageAdapter(this);
 
 		switch (item.getItemId()) {
@@ -213,13 +212,6 @@ public class GameActivity extends Activity {
 			gameDifficulty = "normal";
 			imageAdapter.setDifficulty(gameDifficulty);
 			trackSolvedTiles = TILE_COUNT_NORMAL;
-			matrixContent.generateMatrixContent(gameDifficulty);
-			imageAdapter.notifyDataSetChanged();
-			break;
-		case R.id.menu_difficulty_hard:
-			gameDifficulty = "hard";
-			imageAdapter.setDifficulty(gameDifficulty);
-			trackSolvedTiles = TILE_COUNT_HARD;
 			matrixContent.generateMatrixContent(gameDifficulty);
 			imageAdapter.notifyDataSetChanged();
 			break;
