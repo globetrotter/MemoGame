@@ -18,26 +18,20 @@ import android.widget.ImageView;
 
 public class GameActivity extends Activity {
 
-	private static final String DIFF_EASY = "easy";
-	private static final String DIFF_NORMAL = "normal";
-	private static final String DIFF_HARD = "hard";
-
-	private static final int TILE_COUNT_EASY = 12;
-	private static final int TILE_COUNT_NORMAL = 30;
-	private static final int TILE_COUNT_HARD = 42;
+	private static final Configuration CFG = new Configuration();
 
 	public static final int BACK_CARD = R.drawable.back_card;
 
 	private String gameDifficulty = "easy";
-	private int trackSolvedTiles = TILE_COUNT_NORMAL;
+	private int trackSolvedTiles = CFG.getTileCountNormal();
 	private MatrixContent matrixContent;
 	private ImageAdapter imageAdapter;
 
 	private int previousTile = 0;
 	private int previousPosition = 0;
 	private int currentTile = 0;
-	private ImageView previousView;
-	private ImageView currentView;
+	private ImageView previousView = null;
+	private ImageView currentView =  null;
 
 	private int turnedTiles;
 
@@ -60,13 +54,11 @@ public class GameActivity extends Activity {
 				trackSolvedTiles = trackSolvedTiles - 2;
 
 				if (trackSolvedTiles == 0) {
-					int optimalSteps = TILE_COUNT_NORMAL
-							+ (TILE_COUNT_NORMAL / 2);
-					if (DIFF_EASY.equals(gameDifficulty)) {
-						optimalSteps = TILE_COUNT_EASY + (TILE_COUNT_EASY / 2);
-					}
-					if (DIFF_EASY.equals(DIFF_HARD)) {
-						optimalSteps = TILE_COUNT_HARD + (TILE_COUNT_HARD / 2);
+					int optimalSteps = CFG.getTileCountNormal()
+							+ (CFG.getTileCountNormal() / 2);
+					if (CFG.DIFF_EASY.equals(gameDifficulty)) {
+						optimalSteps = CFG.getTileCountEasy()
+								+ (CFG.getTileCountEasy() / 2);
 					}
 
 					new AlertDialog.Builder(GameActivity.this)
@@ -75,14 +67,14 @@ public class GameActivity extends Activity {
 											+ " turned tiles. Optimal steps: "
 											+ optimalSteps)
 							.setCancelable(false)
-							.setPositiveButton("Quit (Share)",
+							.setPositiveButton("Quit",
 									new DialogInterface.OnClickListener() {
 										public void onClick(
 												DialogInterface dialog, int id) {
 											GameActivity.this.finish();
 										}
 									})
-							.setNegativeButton("Retry",
+							.setNegativeButton("I can beat that",
 									new DialogInterface.OnClickListener() {
 										public void onClick(
 												DialogInterface dialog, int id) {
@@ -118,6 +110,12 @@ public class GameActivity extends Activity {
 		imageAdapter.setMatrixContent(matrixContent);
 
 		gridview.setAdapter(imageAdapter);
+		if (CFG.DIFF_EASY.equals(gameDifficulty)) {
+			gridview.setNumColumns(3);
+		}
+		if (CFG.DIFF_NORMAL.equals(gameDifficulty)) {
+			gridview.setNumColumns(4);
+		}
 		gridview.setBackgroundColor(getResources().getColor(
 				R.color.image_placeholder));
 
@@ -170,12 +168,9 @@ public class GameActivity extends Activity {
 			gridview.setAdapter(imageAdapter);
 		}
 
-		trackSolvedTiles = TILE_COUNT_NORMAL;
-		if (DIFF_EASY.equals(gameDifficulty)) {
-			trackSolvedTiles = TILE_COUNT_EASY;
-		}
-		if (DIFF_HARD.equals(gameDifficulty)) {
-			trackSolvedTiles = TILE_COUNT_HARD;
+		trackSolvedTiles = CFG.getTileCountNormal();
+		if (CFG.DIFF_EASY.equals(gameDifficulty)) {
+			trackSolvedTiles = CFG.getTileCountEasy();
 		}
 
 		matrixContent.generateMatrixContent(gameDifficulty);
@@ -203,15 +198,17 @@ public class GameActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.menu_difficulty_easy:
 			gameDifficulty = "easy";
+			gridview.setNumColumns(3);
 			imageAdapter.setDifficulty(gameDifficulty);
-			trackSolvedTiles = TILE_COUNT_EASY;
+			trackSolvedTiles = CFG.getTileCountEasy();
 			matrixContent.generateMatrixContent(gameDifficulty);
 			imageAdapter.notifyDataSetChanged();
 			break;
 		case R.id.menu_difficulty_normal:
 			gameDifficulty = "normal";
+			gridview.setNumColumns(4);
 			imageAdapter.setDifficulty(gameDifficulty);
-			trackSolvedTiles = TILE_COUNT_NORMAL;
+			trackSolvedTiles = CFG.getTileCountNormal();
 			matrixContent.generateMatrixContent(gameDifficulty);
 			imageAdapter.notifyDataSetChanged();
 			break;

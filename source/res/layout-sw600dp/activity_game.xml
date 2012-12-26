@@ -6,6 +6,5 @@
     android:numColumns="3"
     android:gravity="center"
     android:listSelector="#00000000"
-     >  
- 
+    >
 </GridView>

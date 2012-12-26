@@ -43,6 +43,7 @@ public final class R {
         public static final int ic_action_search=0x7f020015;
         public static final int ic_launcher=0x7f020016;
         public static final int layout_selector=0x7f020017;
+        public static final int logo=0x7f020018;
     }
     public static final class id {
         public static final int game_grid_view=0x7f080000;
