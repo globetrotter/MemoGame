@@ -13,9 +13,12 @@ public class MatrixContent {
 	public MatrixContent() {
 	}
 
-	public void generateMatrixContent(String difficulty) {
-
+	public void generateMatrixContent(String difficulty) {		
 		int k = 0;
+		
+		if (CFG.DIFF_EASY.equals(difficulty)) {
+			
+		}
 
 		if (CFG.DIFF_EASY.equals(difficulty)) {
 			matrixContent = new int[CFG.getTileCountEasy()];
@@ -26,12 +29,8 @@ public class MatrixContent {
 			Random r = new Random();
 			Collections.shuffle(shuffledImages, r);
 			for (int i = 0; i < CFG.getTileCountEasy(); i++) {
-				if (CFG.BLANKS_EASY[i] == 0) {
-					matrixContent[i] = 0;
-				} else {
-					matrixContent[i] = shuffledImages.get(k);
-					k++;
-				}
+				matrixContent[i] = shuffledImages.get(k);
+				k++;
 			}
 		}
 
@@ -44,12 +43,8 @@ public class MatrixContent {
 			Random r = new Random();
 			Collections.shuffle(shuffledImages, r);
 			for (int i = 0; i < CFG.getTileCountNormal(); i++) {
-				if (CFG.BLANKS_NORMAL[i] == 0) {
-					matrixContent[i] = 0;
-				} else {
-					matrixContent[i] = shuffledImages.get(k);
-					k++;
-				}
+				matrixContent[i] = shuffledImages.get(k);
+				k++;
 			}
 		}
 	}
@@ -64,16 +59,6 @@ public class MatrixContent {
 
 	public int getCoverTile(String difficulty, int position) {
 		int cover = GameActivity.BACK_CARD;
-		if (CFG.DIFF_EASY.equals(difficulty)) {
-			if (CFG.BLANKS_EASY[position] == 0) {
-				cover = 0;
-			}
-		}
-		if (CFG.DIFF_NORMAL.equals(difficulty)) {
-			if (CFG.BLANKS_NORMAL[position] == 0) {
-				cover = 0;
-			}
-		}
 		return cover;
 	}
 }
