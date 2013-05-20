@@ -7,9 +7,10 @@
     <string name="menu_difficulty_easy">Easy</string>
     <string name="menu_difficulty_normal">Challenge</string>
     <string name="title_activity_game_settings">GameSettingsActivity</string>
-    <string name="title_activity_scores">ScoresActivity</string>
+    <string name="title_activity_scores">Scores</string>
     <string name="action_share">Share</string>
+    <string name="action_scores">Scores</string>
     <string name="action_order">Customize</string>
-    <string name="score">Scores</string>
+    <string name="score">Listing latest activity</string>
 
 </resources>

@@ -2,13 +2,13 @@
 
     <item
         android:id="@+id/menu_difficulty_easy"
-        android:title="@string/menu_difficulty_easy"
-        android:showAsAction="ifRoom|withText">
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menu_difficulty_easy">
     </item>
     <item
         android:id="@+id/menu_difficulty_normal"
-        android:title="@string/menu_difficulty_normal"
-        android:showAsAction="ifRoom|withText">
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/menu_difficulty_normal">
     </item>
     <item
         android:id="@+id/action_share"
@@ -16,10 +16,14 @@
         android:showAsAction="never"
         android:title="@string/action_share"/>
     <item
+        android:id="@+id/action_scores"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_scores"/>
+    <item
         android:id="@+id/action_order"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_order"/>
-    
-    
+
 </menu>

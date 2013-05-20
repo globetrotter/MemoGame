@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class GameActivity extends Activity {
 
@@ -223,6 +224,13 @@ public class GameActivity extends Activity {
 			break;
 		case R.id.menu_difficulty_normal:
 			startNewGame(gridview, "normal", 4, CFG.getTileCountNormal());
+			break;
+		case R.id.action_scores:
+			Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
+			startActivity(intent);
+			break;
+		case R.id.action_share:
+			Toast.makeText(this, "You will now share Memo!", Toast.LENGTH_LONG).show();
 			break;
 		// case R.id.menu_quit:
 		// GameActivity.this.finish();

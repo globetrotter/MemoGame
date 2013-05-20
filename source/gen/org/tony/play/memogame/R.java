@@ -56,7 +56,8 @@ public final class R {
         public static final int logo=0x7f020018;
     }
     public static final class id {
-        public static final int action_order=0x7f090006;
+        public static final int action_order=0x7f090007;
+        public static final int action_scores=0x7f090006;
         public static final int action_share=0x7f090005;
         public static final int game_grid_view=0x7f090000;
         public static final int listView1=0x7f090001;
@@ -73,13 +74,14 @@ public final class R {
         public static final int scores=0x7f080001;
     }
     public static final class string {
-        public static final int action_order=0x7f060008;
+        public static final int action_order=0x7f060009;
+        public static final int action_scores=0x7f060008;
         public static final int action_share=0x7f060007;
         public static final int app_name=0x7f060000;
         public static final int menu_difficulty_easy=0x7f060003;
         public static final int menu_difficulty_normal=0x7f060004;
         public static final int menu_settings=0x7f060001;
-        public static final int score=0x7f060009;
+        public static final int score=0x7f06000a;
         public static final int title_activity_game=0x7f060002;
         public static final int title_activity_game_settings=0x7f060005;
         public static final int title_activity_scores=0x7f060006;
