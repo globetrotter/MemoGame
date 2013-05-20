@@ -1,11 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">MemoGame</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_game">Memory</string>
     <string name="menu_difficulty_easy">Easy</string>
     <string name="menu_difficulty_normal">Challenge</string>
     <string name="title_activity_game_settings">GameSettingsActivity</string>
+    <string name="title_activity_scores">ScoresActivity</string>
+    <string name="action_share">Share</string>
+    <string name="action_order">Customize</string>
+    <string name="score">Scores</string>
 
 </resources>

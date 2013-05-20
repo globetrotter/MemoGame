@@ -3,6 +3,7 @@ package org.tony.play.memogame;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class GameActivity extends Activity {
 	public static final int BACK_CARD = R.drawable.back_card;
 
 	private String gameDifficulty = "easy";
-	private int trackSolvedTiles = CFG.getTileCountNormal();
+	private int tilesToSolve = CFG.getTileCountNormal();
 	private MatrixContent matrixContent;
 	private ImageAdapter imageAdapter;
 
@@ -31,7 +32,7 @@ public class GameActivity extends Activity {
 	private int previousPosition = 0;
 	private int currentTile = 0;
 	private ImageView previousView = null;
-	private ImageView currentView =  null;
+	private ImageView currentView = null;
 
 	private int turnedTiles;
 
@@ -51,9 +52,9 @@ public class GameActivity extends Activity {
 				previousView.setImageDrawable(null);
 				previousView.setEnabled(false);
 				previousView.setVisibility(View.GONE);
-				trackSolvedTiles = trackSolvedTiles - 2;
+				tilesToSolve = tilesToSolve - 2;
 
-				if (trackSolvedTiles == 0) {
+				if (tilesToSolve == 0) {
 					int optimalSteps = CFG.getTileCountNormal()
 							+ (CFG.getTileCountNormal() / 2);
 					if (CFG.DIFF_EASY.equals(gameDifficulty)) {
@@ -63,18 +64,20 @@ public class GameActivity extends Activity {
 
 					new AlertDialog.Builder(GameActivity.this)
 							.setMessage(
-									"Good job! With " + turnedTiles
+									turnedTiles
 											+ " turned tiles. Optimal steps: "
 											+ optimalSteps)
 							.setCancelable(false)
-							.setPositiveButton("Quit",
+							.setPositiveButton("Scores",
 									new DialogInterface.OnClickListener() {
 										public void onClick(
 												DialogInterface dialog, int id) {
-											GameActivity.this.finish();
+											
+											Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
+											startActivity(intent);
 										}
 									})
-							.setNegativeButton("I can beat that",
+							.setNegativeButton("Play again",
 									new DialogInterface.OnClickListener() {
 										public void onClick(
 												DialogInterface dialog, int id) {
@@ -159,8 +162,9 @@ public class GameActivity extends Activity {
 	@Override
 	public void onStart() {
 		super.onStart();
+		System.out.println("GameActivity.onStart()");
 		turnedTiles = 0;
-		if (trackSolvedTiles == 0) {
+		if (tilesToSolve == 0) {
 			GridView gridview = (GridView) findViewById(R.id.game_grid_view);
 			imageAdapter = new ImageAdapter(this);
 			imageAdapter.setDifficulty(gameDifficulty);
@@ -168,9 +172,9 @@ public class GameActivity extends Activity {
 			gridview.setAdapter(imageAdapter);
 		}
 
-		trackSolvedTiles = CFG.getTileCountNormal();
+		tilesToSolve = CFG.getTileCountNormal();
 		if (CFG.DIFF_EASY.equals(gameDifficulty)) {
-			trackSolvedTiles = CFG.getTileCountEasy();
+			tilesToSolve = CFG.getTileCountEasy();
 		}
 
 		matrixContent.generateMatrixContent(gameDifficulty);
@@ -178,16 +182,34 @@ public class GameActivity extends Activity {
 	}
 
 	@Override
+	protected void onPause() {
+		super.onPause();
+		System.out.println("GameActivity.onPause()");
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		System.out.println("GameActivity.onStop()");
+	}
+	
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		System.out.println("GameActivity.onRestart()");
+	}
+
+	@Override
 	public void onBackPressed() {
 		new AlertDialog.Builder(this)
-				.setMessage("Are you sure you want to exit?")
+				.setMessage("Do you want to exit?")
 				.setCancelable(false)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								GameActivity.this.finish();
 							}
-						}).setNegativeButton("Nope", null).show();
+						}).setNegativeButton("No", null).show();
 	}
 
 	@Override
@@ -197,20 +219,10 @@ public class GameActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.menu_difficulty_easy:
-			gameDifficulty = "easy";
-			gridview.setNumColumns(3);
-			imageAdapter.setDifficulty(gameDifficulty);
-			trackSolvedTiles = CFG.getTileCountEasy();
-			matrixContent.generateMatrixContent(gameDifficulty);
-			imageAdapter.notifyDataSetChanged();
+			startNewGame(gridview, "easy", 3, CFG.getTileCountEasy());
 			break;
 		case R.id.menu_difficulty_normal:
-			gameDifficulty = "normal";
-			gridview.setNumColumns(4);
-			imageAdapter.setDifficulty(gameDifficulty);
-			trackSolvedTiles = CFG.getTileCountNormal();
-			matrixContent.generateMatrixContent(gameDifficulty);
-			imageAdapter.notifyDataSetChanged();
+			startNewGame(gridview, "normal", 4, CFG.getTileCountNormal());
 			break;
 		// case R.id.menu_quit:
 		// GameActivity.this.finish();
@@ -221,6 +233,19 @@ public class GameActivity extends Activity {
 		imageAdapter.setMatrixContent(matrixContent);
 		gridview.setAdapter(imageAdapter);
 		return true;
+	}
+
+	private void startNewGame(GridView gridview, String difficulty,
+			int numColumns, int tilesCount) {
+		gameDifficulty = difficulty;
+		gridview.setNumColumns(numColumns);
+		imageAdapter.setDifficulty(difficulty);
+		tilesToSolve = tilesCount;
+		matrixContent.generateMatrixContent(difficulty);
+		previousPosition = 0;
+		previousTile = 0;
+		previousView = null;
+		imageAdapter.notifyDataSetChanged();
 	}
 
 }

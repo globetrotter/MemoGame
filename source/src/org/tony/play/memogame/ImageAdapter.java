@@ -7,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-
 public class ImageAdapter extends BaseAdapter {
 
 	private static final Configuration CFG = new Configuration();
@@ -39,30 +38,46 @@ public class ImageAdapter extends BaseAdapter {
 	// create a new ImageView for each item referenced by the Adapter
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView imageView;
-		if (convertView == null) { // if it's not recycled, initialize some
-									// attributes
+		if (convertView == null) {
+			// if it's not recycled, initialize some attributes
 			imageView = new ImageView(context);
-//			imageView.setPadding(10, 10, 0, 0);
-		    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			// imageView.setPadding(10, 10, 0, 0);
+			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-		    int d = context.getResources().getDisplayMetrics().densityDpi;
-		    int h = context.getResources().getDisplayMetrics().heightPixels;
-		    int w = context.getResources().getDisplayMetrics().widthPixels;
-		    System.out.println("h w d:  " + h + " " + w + " "+ d);
-		    if (h > 1200) {
-		    	// LARGE SCREENS, 7 INCH
-		    	imageView.setLayoutParams(new GridView.LayoutParams(300, 270));
-		    	if (gameDifficulty.equals(CFG.DIFF_NORMAL)) {
-		    		imageView.setLayoutParams(new GridView.LayoutParams(205, 185));
-		    	}
-		    } else {
-		    	// 4 INCH SCREENS
-			    imageView.setLayoutParams(new GridView.LayoutParams(185, 163));
-			    if (gameDifficulty.equals(CFG.DIFF_NORMAL)) {
-			    	//width, height
-			    	imageView.setLayoutParams(new GridView.LayoutParams(137, 115));
-		    	}
-		    }
+			// int d = context.getResources().getDisplayMetrics().densityDpi;
+			int h = context.getResources().getDisplayMetrics().heightPixels;
+			// int w = context.getResources().getDisplayMetrics().widthPixels;
+			// System.out.println("h w d:  " + h + " " + w + " "+ d);
+
+			// 7 inch and 10 inch display
+			if (h >= 1200) {
+				imageView.setLayoutParams(new GridView.LayoutParams(300, 270));
+				if (gameDifficulty.equals(CFG.DIFF_NORMAL)) {
+					imageView.setLayoutParams(new GridView.LayoutParams(205,
+							185));
+				}
+			}
+
+			// 4.7 inch display
+			if (h > 1100 && h < 1200) {
+				imageView.setLayoutParams(new GridView.LayoutParams(275, 255));
+				if (gameDifficulty.equals(CFG.DIFF_NORMAL)) {
+					// width, height
+					imageView.setLayoutParams(new GridView.LayoutParams(202,
+							170));
+				}
+			}
+
+			// 4 inch and smaller display
+			if (h <= 1100) {
+				imageView.setLayoutParams(new GridView.LayoutParams(185, 163));
+				if (gameDifficulty.equals(CFG.DIFF_NORMAL)) {
+					// width, height
+					imageView.setLayoutParams(new GridView.LayoutParams(137,
+							115));
+				}
+			}
+
 		} else {
 			imageView = (ImageView) convertView;
 		}
