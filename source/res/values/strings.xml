@@ -11,6 +11,7 @@
     <string name="action_share">Share</string>
     <string name="action_scores">Scores</string>
     <string name="action_order">Customize</string>
-    <string name="score">Listing latest activity</string>
+    <string name="score_easy">Latest scores in: Easy</string>
+    <string name="score_chal">Latest scores in: Challenge</string>
 
 </resources>

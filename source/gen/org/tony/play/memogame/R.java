@@ -13,6 +13,8 @@ public final class R {
     public static final class color {
         public static final int background_main=0x7f040000;
         public static final int black=0x7f040002;
+        public static final int green1=0x7f040004;
+        public static final int green2=0x7f040005;
         /**  Color of image view placeholder. 
          */
         public static final int image_placeholder=0x7f040001;
@@ -56,14 +58,16 @@ public final class R {
         public static final int logo=0x7f020018;
     }
     public static final class id {
-        public static final int action_order=0x7f090007;
-        public static final int action_scores=0x7f090006;
-        public static final int action_share=0x7f090005;
+        public static final int action_order=0x7f090009;
+        public static final int action_scores=0x7f090008;
+        public static final int action_share=0x7f090007;
         public static final int game_grid_view=0x7f090000;
-        public static final int listView1=0x7f090001;
-        public static final int menu_difficulty_easy=0x7f090003;
-        public static final int menu_difficulty_normal=0x7f090004;
-        public static final int textView1=0x7f090002;
+        public static final int menu_difficulty_easy=0x7f090005;
+        public static final int menu_difficulty_normal=0x7f090006;
+        public static final int scores_chal=0x7f090002;
+        public static final int scores_easy=0x7f090004;
+        public static final int text_scores_chal=0x7f090003;
+        public static final int text_scores_easy=0x7f090001;
     }
     public static final class layout {
         public static final int activity_game=0x7f030000;
@@ -81,7 +85,8 @@ public final class R {
         public static final int menu_difficulty_easy=0x7f060003;
         public static final int menu_difficulty_normal=0x7f060004;
         public static final int menu_settings=0x7f060001;
-        public static final int score=0x7f06000a;
+        public static final int score_chal=0x7f06000b;
+        public static final int score_easy=0x7f06000a;
         public static final int title_activity_game=0x7f060002;
         public static final int title_activity_game_settings=0x7f060005;
         public static final int title_activity_scores=0x7f060006;

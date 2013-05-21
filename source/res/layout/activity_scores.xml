@@ -8,21 +8,41 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ScoresActivity" >
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/text_scores_easy"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="74dp" >
+        android:text="@string/score_easy"
+		android:background="@color/green1"/>
+
+    <ListView
+        android:id="@+id/scores_chal"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/text_scores_chal" >
 
     </ListView>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/text_scores_chal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/listView1"
-        android:text="@string/score"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignLeft="@+id/scores_chal"
+        android:layout_centerVertical="true"
+        android:text="@string/score_chal"
+        android:background="@color/green2"/>
+    
+
+    <ListView
+        android:id="@+id/scores_easy"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_above="@+id/text_scores_chal"
+        android:layout_alignLeft="@+id/text_scores_easy"
+        android:layout_below="@+id/text_scores_easy"
+        android:scrollbars="none" >
+
+    </ListView>
 
 </RelativeLayout>

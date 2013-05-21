@@ -20,4 +20,6 @@
     <color name="image_placeholder">#333333</color>    
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="green1">#AABB44</color>
+    <color name="green2">#77CC11</color>    
 </resources>
