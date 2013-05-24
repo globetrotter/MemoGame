@@ -58,12 +58,13 @@ public final class R {
         public static final int logo=0x7f020018;
     }
     public static final class id {
-        public static final int action_order=0x7f090009;
-        public static final int action_scores=0x7f090008;
-        public static final int action_share=0x7f090007;
         public static final int game_grid_view=0x7f090000;
-        public static final int menu_difficulty_easy=0x7f090005;
-        public static final int menu_difficulty_normal=0x7f090006;
+        public static final int menu_item_difficulty_easy=0x7f090005;
+        public static final int menu_item_difficulty_normal=0x7f090006;
+        public static final int menu_item_order=0x7f090009;
+        public static final int menu_item_score_share=0x7f09000a;
+        public static final int menu_item_scores=0x7f090008;
+        public static final int menu_item_share=0x7f090007;
         public static final int scores_chal=0x7f090002;
         public static final int scores_easy=0x7f090004;
         public static final int text_scores_chal=0x7f090003;
@@ -74,22 +75,23 @@ public final class R {
         public static final int activity_scores=0x7f030001;
     }
     public static final class menu {
-        public static final int activity_game=0x7f080000;
-        public static final int scores=0x7f080001;
+        public static final int game_activity_menu=0x7f080000;
+        public static final int scores_menu=0x7f080001;
     }
     public static final class string {
-        public static final int action_order=0x7f060009;
-        public static final int action_scores=0x7f060008;
-        public static final int action_share=0x7f060007;
         public static final int app_name=0x7f060000;
-        public static final int menu_difficulty_easy=0x7f060003;
-        public static final int menu_difficulty_normal=0x7f060004;
         public static final int menu_settings=0x7f060001;
-        public static final int score_chal=0x7f06000b;
-        public static final int score_easy=0x7f06000a;
+        public static final int score_chal=0x7f06000c;
+        public static final int score_easy=0x7f06000b;
+        public static final int title_action_order=0x7f06000a;
+        public static final int title_action_scores=0x7f060009;
+        public static final int title_action_share=0x7f060007;
         public static final int title_activity_game=0x7f060002;
         public static final int title_activity_game_settings=0x7f060005;
         public static final int title_activity_scores=0x7f060006;
+        public static final int title_menu_difficulty_easy=0x7f060003;
+        public static final int title_menu_difficulty_normal=0x7f060004;
+        public static final int title_score_share=0x7f060008;
     }
     public static final class style {
         public static final int AppTheme=0x7f070000;

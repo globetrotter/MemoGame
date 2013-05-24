@@ -8,18 +8,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.app.Activity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ShareActionProvider;
 
+@SuppressLint("NewApi")
 public class ScoresActivity extends Activity {
+	
+	private ShareActionProvider mShareActionProvider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		System.out.println("ScoresActivity.onCreate()");
 		setContentView(R.layout.activity_scores);
 
 		// read data from external storage
@@ -114,9 +122,41 @@ public class ScoresActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.scores, menu);
+		System.out.println("ScoresActivity.onCreateOptionsMenu()");
+//		getMenuInflater().inflate(R.menu.scores_menu, menu);
+//		MenuItem item = menu.findItem(R.id.menu_item_score_share);
+//		mShareActionProvider = (ShareActionProvider) item.getActionProvider();
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		System.out.println("ScoresActivity.onOptionsItemSelected()");
+		switch (item.getItemId()) {
+		case R.id.menu_item_score_share:
+			Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+			shareIntent.setType("text/plain");
+			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Hey :-) ");
+			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "I just achieved new best score on Memo Game. Want to take a challenge? Get it here: www");
+			startActivity(Intent.createChooser(shareIntent, "How do you want to share?"));
+			break;
+		default:
+			break;
+		}
+		return true;
+	}
+	
+	// call to update the share intent
+	private void setShareIntent(Intent shareIntent) {
+	    if (mShareActionProvider != null) {
+	        mShareActionProvider.setShareIntent(shareIntent);
+	    }
+	}
+
+	// Somewhere in the application.
+	 public void doShare(Intent shareIntent) {
+	     // When you want to share set the share intent.
+	     mShareActionProvider.setShareIntent(shareIntent);
+	 }
+	
 }

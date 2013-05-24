@@ -7,7 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,54 +28,54 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.ShareActionProvider;
 
 public class GameActivity extends Activity {
 
 	private static final Configuration CFG = new Configuration();
-
 	public static final int BACK_CARD = R.drawable.back_card;
+	private static final int MAGIC_ONE = 11;
+	private static final int MAGIC_TWO = 7;
 
-	private String gameDifficulty = "easy";
-	private int tilesToSolve = CFG.getTileCountNormal();
-	private MatrixContent matrixContent;
-	private ImageAdapter imageAdapter;
+	private String mGameDifficulty = "easy";
+	private int mTilesToSolve = CFG.getTileCountNormal();
+	private MatrixContent mMatrixContent;
+	private ImageAdapter mImageAdapter;
 
-	private int previousTile = 0;
-	private int previousPosition = 0;
-	private int currentPosition = 0;
-	private int currentTile = 0;
-	private ImageView previousView = null;
-	private ImageView currentView = null;
-	private boolean firstTileTurned = false;
-	private long startTime;
-	private int magicOne = 11;
-	private int magicTwo = 7;
+	private int mPreviousTile = 0;
+	private int mPreviousPosition = 0;
+	private int mCurrentPosition = 0;
+	private int mCurrentTile = 0;
+	private ImageView mPreviousView = null;
+	private ImageView mCurrentView = null;
+	private boolean mFirstTileTurned = false;
+	private long mStartTime;
+	private int mTurnedTiles;
+	private ShareActionProvider mShareActionProvider; 
+	
 
-	private int turnedTiles;
-
-	private Handler handler = new Handler() {
+	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 
-			if (previousPosition == magicOne && currentPosition == magicTwo) {
-				tilesToSolve = 0;
+			if (mPreviousPosition == MAGIC_ONE && mCurrentPosition == MAGIC_TWO) {
+				mTilesToSolve = 0;
 				gameDone();
 			}
 			
-			if (previousTile == currentTile) {
+			if (mPreviousTile == mCurrentTile) {
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				currentView.setImageDrawable(null);
-				currentView.setEnabled(false);
-				currentView.setVisibility(View.GONE);
-				previousView.setImageDrawable(null);
-				previousView.setEnabled(false);
-				previousView.setVisibility(View.GONE);
-				tilesToSolve = tilesToSolve - 2;
+				mCurrentView.setImageDrawable(null);
+				mCurrentView.setEnabled(false);
+				mCurrentView.setVisibility(View.GONE);
+				mPreviousView.setImageDrawable(null);
+				mPreviousView.setEnabled(false);
+				mPreviousView.setVisibility(View.GONE);
+				mTilesToSolve = mTilesToSolve - 2;
 				gameDone();
 				
 			} else {
@@ -83,30 +86,30 @@ public class GameActivity extends Activity {
 				}
 				Resources Resources = getResources();
 				Drawable drawable = Resources.getDrawable(BACK_CARD);
-				previousView.setImageDrawable(drawable);
-				currentView.setImageDrawable(drawable);
+				mPreviousView.setImageDrawable(drawable);
+				mCurrentView.setImageDrawable(drawable);
 			}
-			previousTile = 0;
+			mPreviousTile = 0;
 		}
 
 		private void gameDone() {
-			if (tilesToSolve == 0) {
-				firstTileTurned = false;
+			if (mTilesToSolve == 0) {
+				mFirstTileTurned = false;
 				int optimalSteps = CFG.getTileCountNormal()
 						+ (CFG.getTileCountNormal() / 2);
-				if (CFG.DIFF_EASY.equals(gameDifficulty)) {
+				if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
 					optimalSteps = CFG.getTileCountEasy()
 							+ (CFG.getTileCountEasy() / 2);
 				}
-				long endTime = System.currentTimeMillis()-startTime; 
-				if (CFG.DIFF_EASY.equals(gameDifficulty)) {
-					writeDataToExternalStorage(turnedTiles, endTime, "Scores.csv");
+				long endTime = System.currentTimeMillis()-mStartTime; 
+				if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
+					writeDataToExternalStorage(mTurnedTiles, endTime, "Scores.csv");
 				} else {
-					writeDataToExternalStorage(turnedTiles, endTime, "Scores_Chall.csv");
+					writeDataToExternalStorage(mTurnedTiles, endTime, "Scores_Chall.csv");
 				}
 				new AlertDialog.Builder(GameActivity.this)
 						.setMessage(
-								turnedTiles
+								mTurnedTiles
 										+ " turned tiles. Optimal steps: "
 										+ optimalSteps)
 						.setCancelable(false)
@@ -164,7 +167,14 @@ public class GameActivity extends Activity {
 			    			}
 			        }
 			        FileWriter fw = new FileWriter(file);
-			        fw.write("Name; " + String.valueOf(optimalSteps) + " steps; " + (duration/1000) + " sec \n");
+			        // get current date
+			        Calendar c = Calendar.getInstance();
+			        System.out.println("Current time => " + c.getTime());
+
+			        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
+			        String formattedDate = df.format(c.getTime());			        
+			        
+			        fw.write("Name; " + String.valueOf(optimalSteps) + " steps; " + (duration/1000) + " sec; " + formattedDate + "\n");
 			        fw.write(s2 + "\n");
 			        fw.write(s3 + "\n");
 			        fw.write(s4 + "\n");
@@ -183,17 +193,17 @@ public class GameActivity extends Activity {
 
 		setContentView(R.layout.activity_game);
 		GridView gridview = (GridView) findViewById(R.id.game_grid_view);
-		matrixContent = new MatrixContent();
-		matrixContent.generateMatrixContent(gameDifficulty);
-		imageAdapter = new ImageAdapter(this);
-		imageAdapter.setDifficulty(gameDifficulty);
-		imageAdapter.setMatrixContent(matrixContent);
+		mMatrixContent = new MatrixContent();
+		mMatrixContent.generateMatrixContent(mGameDifficulty);
+		mImageAdapter = new ImageAdapter(this);
+		mImageAdapter.setDifficulty(mGameDifficulty);
+		mImageAdapter.setMatrixContent(mMatrixContent);
 
-		gridview.setAdapter(imageAdapter);
-		if (CFG.DIFF_EASY.equals(gameDifficulty)) {
+		gridview.setAdapter(mImageAdapter);
+		if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
 			gridview.setNumColumns(3);
 		}
-		if (CFG.DIFF_NORMAL.equals(gameDifficulty)) {
+		if (CFG.DIFF_NORMAL.equals(mGameDifficulty)) {
 			gridview.setNumColumns(4);
 		}
 		gridview.setBackgroundColor(getResources().getColor(
@@ -205,30 +215,30 @@ public class GameActivity extends Activity {
 
 				ImageView imageView = (ImageView) v;
 				if (imageView.getDrawable() != null) {
-					if (!firstTileTurned) {
-						startTime = System.currentTimeMillis();
-						firstTileTurned = true;
+					if (!mFirstTileTurned) {
+						mStartTime = System.currentTimeMillis();
+						mFirstTileTurned = true;
 					}
-					turnedTiles++;
-					int thisTile = matrixContent.getContentAt(position);
+					mTurnedTiles++;
+					int thisTile = mMatrixContent.getContentAt(position);
 					Resources resources = getResources();
 					Drawable drawable = resources.getDrawable(thisTile);
 					imageView.setImageDrawable(drawable);
-					if (previousTile == 0) {
-						previousTile = thisTile;
-						previousView = imageView;
-						previousPosition = position;
+					if (mPreviousTile == 0) {
+						mPreviousTile = thisTile;
+						mPreviousView = imageView;
+						mPreviousPosition = position;
 						System.out.println("tile position: " + position);
 					} else {
-						if (position != previousPosition) {
+						if (position != mPreviousPosition) {
 							System.out.println("tile position: " + position);
-							currentPosition = position;
-							currentTile = thisTile;
-							currentView = imageView;
-							Message msg = handler.obtainMessage();
-							handler.sendMessage(msg);
+							mCurrentPosition = position;
+							mCurrentTile = thisTile;
+							mCurrentView = imageView;
+							Message msg = mHandler.obtainMessage();
+							mHandler.sendMessage(msg);
 						} else {
-							turnedTiles--;
+							mTurnedTiles--;
 						}
 					}
 				}
@@ -237,32 +247,52 @@ public class GameActivity extends Activity {
 		});
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_game, menu);
+		System.out.println("GameActivity.onCreateOptionsMenu()");
+		// inflate menu resource file
+		getMenuInflater().inflate(R.menu.game_activity_menu, menu);
+		// locate menuItem with ShareActionProvider
+		MenuItem item = menu.findItem(R.id.menu_item_share);
+		// fetch and store action ShareActionProvider 
+		mShareActionProvider = (ShareActionProvider) item.getActionProvider();
 		return true;
 	}
-
+	
+//	// Somewhere in the application.
+//	 public void doShare(Intent shareIntent) {
+//	     // When you want to share set the share intent.
+//	     mShareActionProvider.setShareIntent(shareIntent);
+//	 }
+	
+	// call to update the share intent
+	private void setShareIntent(Intent shareIntent) {
+	    if (mShareActionProvider != null) {
+	        mShareActionProvider.setShareIntent(shareIntent);
+	    }
+	}
+	
 	@Override
 	public void onStart() {
 		super.onStart();
 		System.out.println("GameActivity.onStart()");
-		turnedTiles = 0;
-		if (tilesToSolve == 0) {
+		mTurnedTiles = 0;
+		if (mTilesToSolve == 0) {
 			GridView gridview = (GridView) findViewById(R.id.game_grid_view);
-			imageAdapter = new ImageAdapter(this);
-			imageAdapter.setDifficulty(gameDifficulty);
-			imageAdapter.setMatrixContent(matrixContent);
-			gridview.setAdapter(imageAdapter);
+			mImageAdapter = new ImageAdapter(this);
+			mImageAdapter.setDifficulty(mGameDifficulty);
+			mImageAdapter.setMatrixContent(mMatrixContent);
+			gridview.setAdapter(mImageAdapter);
 		}
 
-		tilesToSolve = CFG.getTileCountNormal();
-		if (CFG.DIFF_EASY.equals(gameDifficulty)) {
-			tilesToSolve = CFG.getTileCountEasy();
+		mTilesToSolve = CFG.getTileCountNormal();
+		if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
+			mTilesToSolve = CFG.getTileCountEasy();
 		}
 
-		matrixContent.generateMatrixContent(gameDifficulty);
-		imageAdapter.notifyDataSetChanged();
+		mMatrixContent.generateMatrixContent(mGameDifficulty);
+		mImageAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -286,7 +316,7 @@ public class GameActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		new AlertDialog.Builder(this)
-				.setMessage("Do you want to exit?")
+				.setMessage("Quit Memory Game?")
 				.setCancelable(false)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
@@ -299,25 +329,29 @@ public class GameActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		GridView gridview = (GridView) findViewById(R.id.game_grid_view);
-		imageAdapter = new ImageAdapter(this);
+		mImageAdapter = new ImageAdapter(this);
 
 		switch (item.getItemId()) {
-		case R.id.menu_difficulty_easy:
+		case R.id.menu_item_difficulty_easy:
 			startNewGame(gridview, "easy", 3, CFG.getTileCountEasy());
-			imageAdapter.setMatrixContent(matrixContent);
-			gridview.setAdapter(imageAdapter);			
+			mImageAdapter.setMatrixContent(mMatrixContent);
+			gridview.setAdapter(mImageAdapter);			
 			break;
-		case R.id.menu_difficulty_normal:
+		case R.id.menu_item_difficulty_normal:
 			startNewGame(gridview, "normal", 4, CFG.getTileCountNormal());
-			imageAdapter.setMatrixContent(matrixContent);
-			gridview.setAdapter(imageAdapter);
+			mImageAdapter.setMatrixContent(mMatrixContent);
+			gridview.setAdapter(mImageAdapter);
 			break;
-		case R.id.action_scores:
+		case R.id.menu_item_scores:
 			Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.action_share:
-			Toast.makeText(this, "You will now share Memo!", Toast.LENGTH_LONG).show();
+		case R.id.menu_item_share:
+			Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+			shareIntent.setType("text/plain");
+			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Hello :-) ");
+			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Just played Memo Game. I think you would love it, too! You can get it here: www");
+			startActivity(Intent.createChooser(shareIntent, "How do you want to share?"));
 			break;
 		// case R.id.menu_qut:
 		// GameActivity.this.finish();
@@ -330,15 +364,15 @@ public class GameActivity extends Activity {
 
 	private void startNewGame(GridView gridview, String difficulty,
 			int numColumns, int tilesCount) {
-		gameDifficulty = difficulty;
+		mGameDifficulty = difficulty;
 		gridview.setNumColumns(numColumns);
-		imageAdapter.setDifficulty(difficulty);
-		tilesToSolve = tilesCount;
-		matrixContent.generateMatrixContent(difficulty);
-		previousPosition = 0;
-		previousTile = 0;
-		previousView = null;
-		imageAdapter.notifyDataSetChanged();
+		mImageAdapter.setDifficulty(difficulty);
+		mTilesToSolve = tilesCount;
+		mMatrixContent.generateMatrixContent(difficulty);
+		mPreviousPosition = 0;
+		mPreviousTile = 0;
+		mPreviousView = null;
+		mImageAdapter.notifyDataSetChanged();
 	}
 
 }
