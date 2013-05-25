@@ -38,9 +38,10 @@ public class GameActivity extends Activity {
 	private static final int MAGIC_TWO = 7;
 
 	private String mGameDifficulty = "easy";
-	private int mTilesToSolve = CFG.getTileCountNormal();
+	private int mTilesToSolve = 0;
 	private MatrixContent mMatrixContent;
 	private ImageAdapter mImageAdapter;
+	private boolean mIsInterrupt = false;
 
 	private int mPreviousTile = 0;
 	private int mPreviousPosition = 0;
@@ -159,7 +160,6 @@ public class GameActivity extends Activity {
 		    							i++;
 			    					}
 			    				} catch (IOException e) {
-			    					// TODO Auto-generated catch block
 			    					e.printStackTrace();
 			    				}
 			    			} catch (FileNotFoundException e) {
@@ -276,23 +276,26 @@ public class GameActivity extends Activity {
 	@Override
 	public void onStart() {
 		super.onStart();
-		System.out.println("GameActivity.onStart()");
-		mTurnedTiles = 0;
+		System.out.println("GameActivity.onStart(), to solve: " +mTilesToSolve + " turned: "+mTurnedTiles);
+		
 		if (mTilesToSolve == 0) {
 			GridView gridview = (GridView) findViewById(R.id.game_grid_view);
 			mImageAdapter = new ImageAdapter(this);
 			mImageAdapter.setDifficulty(mGameDifficulty);
 			mImageAdapter.setMatrixContent(mMatrixContent);
 			gridview.setAdapter(mImageAdapter);
+			mTilesToSolve = CFG.getTileCountNormal();
+			if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
+				mTilesToSolve = CFG.getTileCountEasy();
+			}
+			mTurnedTiles = 0;
 		}
 
-		mTilesToSolve = CFG.getTileCountNormal();
-		if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
-			mTilesToSolve = CFG.getTileCountEasy();
+		if (!mIsInterrupt) {
+			mMatrixContent.generateMatrixContent(mGameDifficulty);
+			mImageAdapter.notifyDataSetChanged();
 		}
-
-		mMatrixContent.generateMatrixContent(mGameDifficulty);
-		mImageAdapter.notifyDataSetChanged();
+		mIsInterrupt = false;
 	}
 
 	@Override
@@ -304,7 +307,8 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		System.out.println("GameActivity.onStop()");
+		mIsInterrupt = true;
+		System.out.println("GameActivity.onStop(), to solve: " +mTilesToSolve + " turned: "+mTurnedTiles);
 	}
 	
 	@Override
@@ -316,7 +320,7 @@ public class GameActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		new AlertDialog.Builder(this)
-				.setMessage("Quit Memory Game?")
+				.setMessage("Quit Memo?")
 				.setCancelable(false)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
