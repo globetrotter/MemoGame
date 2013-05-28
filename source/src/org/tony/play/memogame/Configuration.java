@@ -11,7 +11,9 @@ import java.util.ArrayList;
 public class Configuration {
 
 	protected final int TILE_COUNT_EASY = 12;
-	protected final int TILE_COUNT_NORMAL = 24;
+	protected final int TILE_COUNT_NORMAL = 30;
+	protected final int COLUMNS_EASY = 3;
+	protected final int COLUMNS_NORMAL = 5;
 	protected final String DIFF_EASY = "easy";
 	protected final String DIFF_NORMAL = "normal";
 

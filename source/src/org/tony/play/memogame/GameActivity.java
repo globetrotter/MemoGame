@@ -195,16 +195,13 @@ public class GameActivity extends Activity {
 		GridView gridview = (GridView) findViewById(R.id.game_grid_view);
 		mMatrixContent = new MatrixContent();
 		mMatrixContent.generateMatrixContent(mGameDifficulty);
-		mImageAdapter = new ImageAdapter(this);
-		mImageAdapter.setDifficulty(mGameDifficulty);
-		mImageAdapter.setMatrixContent(mMatrixContent);
-
+		mImageAdapter = createImageAdapter();
 		gridview.setAdapter(mImageAdapter);
 		if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
-			gridview.setNumColumns(3);
+			gridview.setNumColumns(CFG.COLUMNS_EASY);
 		}
 		if (CFG.DIFF_NORMAL.equals(mGameDifficulty)) {
-			gridview.setNumColumns(4);
+			gridview.setNumColumns(CFG.COLUMNS_NORMAL);
 		}
 		gridview.setBackgroundColor(getResources().getColor(
 				R.color.image_placeholder));
@@ -212,7 +209,6 @@ public class GameActivity extends Activity {
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-
 				ImageView imageView = (ImageView) v;
 				if (imageView.getDrawable() != null) {
 					if (!mFirstTileTurned) {
@@ -280,9 +276,7 @@ public class GameActivity extends Activity {
 		
 		if (mTilesToSolve == 0) {
 			GridView gridview = (GridView) findViewById(R.id.game_grid_view);
-			mImageAdapter = new ImageAdapter(this);
-			mImageAdapter.setDifficulty(mGameDifficulty);
-			mImageAdapter.setMatrixContent(mMatrixContent);
+			mImageAdapter = createImageAdapter();
 			gridview.setAdapter(mImageAdapter);
 			mTilesToSolve = CFG.getTileCountNormal();
 			if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
@@ -296,6 +290,13 @@ public class GameActivity extends Activity {
 			mImageAdapter.notifyDataSetChanged();
 		}
 		mIsInterrupt = false;
+	}
+
+	private ImageAdapter createImageAdapter() {
+		ImageAdapter imageAdapter = new ImageAdapter(this);
+		imageAdapter.setDifficulty(mGameDifficulty);
+		imageAdapter.setMatrixContent(mMatrixContent);
+		return imageAdapter; 
 	}
 
 	@Override
@@ -332,19 +333,21 @@ public class GameActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		GridView gridview = (GridView) findViewById(R.id.game_grid_view);
-		mImageAdapter = new ImageAdapter(this);
-
+		GridView gridview;
 		switch (item.getItemId()) {
 		case R.id.menu_item_difficulty_easy:
-			startNewGame(gridview, "easy", 3, CFG.getTileCountEasy());
-			mImageAdapter.setMatrixContent(mMatrixContent);
-			gridview.setAdapter(mImageAdapter);			
+			gridview = (GridView) findViewById(R.id.game_grid_view);
+			startNewGame(gridview, "easy", CFG.COLUMNS_EASY, CFG.getTileCountEasy());
+			mImageAdapter = createImageAdapter();
+			gridview.setAdapter(mImageAdapter);
+			mImageAdapter.notifyDataSetChanged();
 			break;
 		case R.id.menu_item_difficulty_normal:
-			startNewGame(gridview, "normal", 4, CFG.getTileCountNormal());
-			mImageAdapter.setMatrixContent(mMatrixContent);
+			gridview = (GridView) findViewById(R.id.game_grid_view);
+			startNewGame(gridview, "normal", CFG.COLUMNS_NORMAL, CFG.getTileCountNormal());
+			mImageAdapter = createImageAdapter();
 			gridview.setAdapter(mImageAdapter);
+			mImageAdapter.notifyDataSetChanged();
 			break;
 		case R.id.menu_item_scores:
 			Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
@@ -357,9 +360,6 @@ public class GameActivity extends Activity {
 			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Just played Memo Game. I think you would love it, too! You can get it here: www");
 			startActivity(Intent.createChooser(shareIntent, "How do you want to share?"));
 			break;
-		// case R.id.menu_qut:
-		// GameActivity.this.finish();
-		// break;
 		default:
 			break;
 		}
@@ -370,13 +370,11 @@ public class GameActivity extends Activity {
 			int numColumns, int tilesCount) {
 		mGameDifficulty = difficulty;
 		gridview.setNumColumns(numColumns);
-		mImageAdapter.setDifficulty(difficulty);
 		mTilesToSolve = tilesCount;
 		mMatrixContent.generateMatrixContent(difficulty);
 		mPreviousPosition = 0;
 		mPreviousTile = 0;
 		mPreviousView = null;
-		mImageAdapter.notifyDataSetChanged();
 	}
 
 }

@@ -63,8 +63,8 @@ public class ImageAdapter extends BaseAdapter {
 				imageView.setLayoutParams(new GridView.LayoutParams(275, 255));
 				if (gameDifficulty.equals(CFG.DIFF_NORMAL)) {
 					// width, height
-					imageView.setLayoutParams(new GridView.LayoutParams(202,
-							170));
+					imageView.setLayoutParams(new GridView.LayoutParams(120,
+							172));
 				}
 			}
 
