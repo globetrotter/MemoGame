@@ -1,4 +1,4 @@
-package org.tony.play.memogame;
+package com.tgnib.android.memogame;
 
 import java.util.ArrayList;
 import java.util.Collections;

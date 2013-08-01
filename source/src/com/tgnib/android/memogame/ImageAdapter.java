@@ -1,4 +1,4 @@
-package org.tony.play.memogame;
+package com.tgnib.android.memogame;
 
 import android.content.Context;
 import android.view.View;
@@ -63,7 +63,7 @@ public class ImageAdapter extends BaseAdapter {
 				imageView.setLayoutParams(new GridView.LayoutParams(275, 255));
 				if (gameDifficulty.equals(CFG.DIFF_NORMAL)) {
 					// width, height
-					imageView.setLayoutParams(new GridView.LayoutParams(120,
+					imageView.setLayoutParams(new GridView.LayoutParams(150,
 							172));
 				}
 			}

@@ -24,5 +24,12 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/title_action_order"/>
+    <item
+        android:id="@+id/menu_item_info"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:showAsAction="ifRoom"
+        android:title="@string/title_action_info"/>
+    
 
 </menu>

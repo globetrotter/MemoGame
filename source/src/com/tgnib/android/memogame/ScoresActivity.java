@@ -1,4 +1,4 @@
-package org.tony.play.memogame;
+package com.tgnib.android.memogame;
 
 import java.io.BufferedReader;
 import java.io.File;

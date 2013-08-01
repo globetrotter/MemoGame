@@ -1,4 +1,4 @@
-package org.tony.play.memogame;
+package com.tgnib.android.memogame;
 
 import java.util.ArrayList;
 
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class Configuration {
 
 	protected final int TILE_COUNT_EASY = 12;
-	protected final int TILE_COUNT_NORMAL = 30;
+	protected final int TILE_COUNT_NORMAL = 24;
 	protected final int COLUMNS_EASY = 3;
-	protected final int COLUMNS_NORMAL = 5;
+	protected final int COLUMNS_NORMAL = 4;
 	protected final String DIFF_EASY = "easy";
 	protected final String DIFF_NORMAL = "normal";
 
@@ -24,26 +24,27 @@ public class Configuration {
 		private static final long serialVersionUID = 22604654732086531L;
 
 		{
-			add(R.drawable.card_1);
+			
 			add(R.drawable.card_2);
 			add(R.drawable.card_3);
 			add(R.drawable.card_4);
 			add(R.drawable.card_5);
 			add(R.drawable.card_6);
 			add(R.drawable.card_7);
+			add(R.drawable.card_8);
 			add(R.drawable.card_9);
 			add(R.drawable.card_10);
 			add(R.drawable.card_11);
-			add(R.drawable.card_13);
 			add(R.drawable.card_14);
-			add(R.drawable.card_15);
-			add(R.drawable.card_16);
-			add(R.drawable.card_17);
-			add(R.drawable.card_18);
-			add(R.drawable.card_19);
-			add(R.drawable.card_20);
-			add(R.drawable.card_21);
-			add(R.drawable.card_22);			
+			add(R.drawable.card_19);			
+
+			add(R.drawable.card_31);
+			add(R.drawable.card_32);
+			add(R.drawable.card_33);
+			add(R.drawable.card_34);
+			add(R.drawable.card_35);
+			add(R.drawable.card_36);
+			add(R.drawable.card_37);
 		}
 	};
 

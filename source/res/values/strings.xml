@@ -3,16 +3,22 @@
 
     <string name="app_name">Memory Game</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_game">Memo</string>
+    <string name="title_activity_game">Memory Game</string>
     <string name="title_menu_difficulty_easy">Easy</string>
     <string name="title_menu_difficulty_normal">Challenge</string>
     <string name="title_activity_game_settings">GameSettingsActivity</string>
     <string name="title_activity_scores">Scores</string>
+    <string name="title_activity_info">Info</string>
     <string name="title_action_share">Share</string>
     <string name="title_score_share">Share</string>
     <string name="title_action_scores">Scores</string>
     <string name="title_action_order">Customize</string>
+    <string name="title_action_info">Info</string>
     <string name="score_easy">Latest scores in: Easy</string>
     <string name="score_chal">Latest scores in: Challenge</string>
+    
+    <string name="properties_about">Built with passion. \n We would appreciate the feedback! \n Visit us at: <a href="www.tgn-ib.com">www.tgn-ib.com</a></string> 
+	<string name="properties_resources">All used images are own photos.</string>
+	<string name="properties_copyright">\@ 2013 All rights reserved \n Toth-Gati Norbert Ingenieurbuero</string>    
 
 </resources>

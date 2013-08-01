@@ -19,7 +19,10 @@
     <!-- Color of image view placeholder. -->
     <color name="image_placeholder">#333333</color>    
     <color name="black">#000000</color>
+    <color name="gray">#C2CBCE</color>
+    <color name="pastelgreen">#BBD2D5</color>
     <color name="white">#ffffff</color>
     <color name="green1">#AABB44</color>
-    <color name="green2">#77CC11</color>    
+    <color name="green2">#77CC11</color>
+    <color name="end_blue">#1E5799</color>    
 </resources>

@@ -1,4 +1,4 @@
-package org.tony.play.memogame;
+package com.tgnib.android.memogame;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -31,6 +32,9 @@ import android.widget.ImageView;
 import android.widget.ShareActionProvider;
 
 public class GameActivity extends Activity {
+
+	private static final String SHARE_EXTRA_SUBJECT = "Memory Game - You will love it!";
+	private static final String SHARE_EXTRA_TEXT = "Just played \"Memory Game\" - You will love it! \n Link to Google Play Store:\n http://goo.gl/ePTRgn";
 
 	private static final Configuration CFG = new Configuration();
 	public static final int BACK_CARD = R.drawable.back_card;
@@ -52,8 +56,7 @@ public class GameActivity extends Activity {
 	private boolean mFirstTileTurned = false;
 	private long mStartTime;
 	private int mTurnedTiles;
-	private ShareActionProvider mShareActionProvider; 
-	
+	private ShareActionProvider mShareActionProvider;
 
 	private Handler mHandler = new Handler() {
 		@Override
@@ -63,7 +66,7 @@ public class GameActivity extends Activity {
 				mTilesToSolve = 0;
 				gameDone();
 			}
-			
+
 			if (mPreviousTile == mCurrentTile) {
 				try {
 					Thread.sleep(500);
@@ -78,7 +81,7 @@ public class GameActivity extends Activity {
 				mPreviousView.setVisibility(View.GONE);
 				mTilesToSolve = mTilesToSolve - 2;
 				gameDone();
-				
+
 			} else {
 				try {
 					Thread.sleep(500);
@@ -96,93 +99,84 @@ public class GameActivity extends Activity {
 		private void gameDone() {
 			if (mTilesToSolve == 0) {
 				mFirstTileTurned = false;
-				int optimalSteps = CFG.getTileCountNormal()
-						+ (CFG.getTileCountNormal() / 2);
+				int optimalSteps = CFG.getTileCountNormal() + (CFG.getTileCountNormal() / 2);
 				if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
-					optimalSteps = CFG.getTileCountEasy()
-							+ (CFG.getTileCountEasy() / 2);
+					optimalSteps = CFG.getTileCountEasy() + (CFG.getTileCountEasy() / 2);
 				}
-				long endTime = System.currentTimeMillis()-mStartTime; 
+				long endTime = System.currentTimeMillis() - mStartTime;
 				if (CFG.DIFF_EASY.equals(mGameDifficulty)) {
 					writeDataToExternalStorage(mTurnedTiles, endTime, "Scores.csv");
 				} else {
 					writeDataToExternalStorage(mTurnedTiles, endTime, "Scores_Chall.csv");
 				}
 				new AlertDialog.Builder(GameActivity.this)
-						.setMessage(
-								mTurnedTiles
-										+ " turned tiles. Optimal steps: "
-										+ optimalSteps)
-						.setCancelable(false)
-						.setPositiveButton("Scores",
-								new DialogInterface.OnClickListener() {
-									public void onClick(
-											DialogInterface dialog, int id) {
-										
-										Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
-										startActivity(intent);
-									}
-								})
-						.setNegativeButton("Play again",
-								new DialogInterface.OnClickListener() {
-									public void onClick(
-											DialogInterface dialog, int id) {
-										GameActivity.this.onStart();
-									}
-								}).show();
+						.setMessage(mTurnedTiles + " turned tiles. Optimal steps: " + optimalSteps)
+						.setCancelable(false).setPositiveButton("Scores", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+
+								Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
+								startActivity(intent);
+							}
+						}).setNegativeButton("Play again", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								GameActivity.this.onStart();
+							}
+						}).show();
 			}
 		}
 
 		private void writeDataToExternalStorage(int optimalSteps, long duration, String filename) {
 			try {
-			    String storageState = Environment.getExternalStorageState();
-			    if (storageState.equals(Environment.MEDIA_MOUNTED)) {
-			        File file = new File(getExternalFilesDir(null), filename);
-			        String s2 = "";
-			        String s3 = "";
-			        String s4 = "";
-			        if (file.exists()) {			    			
-			    			try {
-			    				BufferedReader inputReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-			    				String inputString;
-			    				try {
-			    					int i = 0;
-			    					while ((inputString = inputReader.readLine()) !=null) {
-			    						if (i==0) {
-			    							s2 = inputString;
-			    						}
-			    						if (i==1) {
-			    							s3 = inputString;
-			    						}
-			    						if (i==2) {
-			    							s4 = inputString;
-			    						}
-		    							i++;
-			    					}
-			    				} catch (IOException e) {
-			    					e.printStackTrace();
-			    				}
-			    			} catch (FileNotFoundException e) {
-			    				e.printStackTrace();
-			    			}
-			        }
-			        FileWriter fw = new FileWriter(file);
-			        // get current date
-			        Calendar c = Calendar.getInstance();
-			        System.out.println("Current time => " + c.getTime());
+				String storageState = Environment.getExternalStorageState();
+				if (storageState.equals(Environment.MEDIA_MOUNTED)) {
+					File file = new File(getExternalFilesDir(null), filename);
+					String s2 = "";
+					String s3 = "";
+					String s4 = "";
+					if (file.exists()) {
+						try {
+							BufferedReader inputReader = new BufferedReader(new InputStreamReader(new FileInputStream(
+									file)));
+							String inputString;
+							try {
+								int i = 0;
+								while ((inputString = inputReader.readLine()) != null) {
+									if (i == 0) {
+										s2 = inputString;
+									}
+									if (i == 1) {
+										s3 = inputString;
+									}
+									if (i == 2) {
+										s4 = inputString;
+									}
+									i++;
+								}
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
+					}
+					FileWriter fw = new FileWriter(file);
+					// get current date
+					Calendar c = Calendar.getInstance();
+					System.out.println("Current time => " + c.getTime());
 
-			        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
-			        String formattedDate = df.format(c.getTime());			        
-			        
-			        fw.write("Name; " + String.valueOf(optimalSteps) + " steps; " + (duration/1000) + " sec; " + formattedDate + "\n");
-			        fw.write(s2 + "\n");
-			        fw.write(s3 + "\n");
-			        fw.write(s4 + "\n");
-			        fw.flush();
-			        fw.close();
-			    }
+					SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
+					String formattedDate = df.format(c.getTime());
+
+					fw.write("Name; " + String.valueOf(optimalSteps) + " steps; " + (duration / 1000) + " sec; "
+							+ formattedDate + "\n");
+					fw.write(s2 + "\n");
+					fw.write(s3 + "\n");
+					fw.write(s4 + "\n");
+					fw.flush();
+					fw.close();
+				}
 			} catch (Exception e) {
-			    e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 	};
@@ -203,12 +197,10 @@ public class GameActivity extends Activity {
 		if (CFG.DIFF_NORMAL.equals(mGameDifficulty)) {
 			gridview.setNumColumns(CFG.COLUMNS_NORMAL);
 		}
-		gridview.setBackgroundColor(getResources().getColor(
-				R.color.image_placeholder));
+		gridview.setBackgroundColor(getResources().getColor(R.color.gray));
 
 		gridview.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View v,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 				ImageView imageView = (ImageView) v;
 				if (imageView.getDrawable() != null) {
 					if (!mFirstTileTurned) {
@@ -251,29 +243,24 @@ public class GameActivity extends Activity {
 		getMenuInflater().inflate(R.menu.game_activity_menu, menu);
 		// locate menuItem with ShareActionProvider
 		MenuItem item = menu.findItem(R.id.menu_item_share);
-		// fetch and store action ShareActionProvider 
-		mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+		// fetch and store action ShareActionProvider
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+			Intent intent = new Intent(Intent.ACTION_SEND);
+			intent.setType("text/plain");
+			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, SHARE_EXTRA_SUBJECT);
+			intent.putExtra(android.content.Intent.EXTRA_TEXT, SHARE_EXTRA_TEXT);
+			mShareActionProvider.setShareIntent(intent);
+		}
+
 		return true;
 	}
-	
-//	// Somewhere in the application.
-//	 public void doShare(Intent shareIntent) {
-//	     // When you want to share set the share intent.
-//	     mShareActionProvider.setShareIntent(shareIntent);
-//	 }
-	
-	// call to update the share intent
-	private void setShareIntent(Intent shareIntent) {
-	    if (mShareActionProvider != null) {
-	        mShareActionProvider.setShareIntent(shareIntent);
-	    }
-	}
-	
+
 	@Override
 	public void onStart() {
 		super.onStart();
-		System.out.println("GameActivity.onStart(), to solve: " +mTilesToSolve + " turned: "+mTurnedTiles);
-		
+		System.out.println("GameActivity.onStart(), to solve: " + mTilesToSolve + " turned: " + mTurnedTiles);
+
 		if (mTilesToSolve == 0) {
 			GridView gridview = (GridView) findViewById(R.id.game_grid_view);
 			mImageAdapter = createImageAdapter();
@@ -296,7 +283,7 @@ public class GameActivity extends Activity {
 		ImageAdapter imageAdapter = new ImageAdapter(this);
 		imageAdapter.setDifficulty(mGameDifficulty);
 		imageAdapter.setMatrixContent(mMatrixContent);
-		return imageAdapter; 
+		return imageAdapter;
 	}
 
 	@Override
@@ -304,14 +291,14 @@ public class GameActivity extends Activity {
 		super.onPause();
 		System.out.println("GameActivity.onPause()");
 	}
-	
+
 	@Override
 	protected void onStop() {
 		super.onStop();
 		mIsInterrupt = true;
-		System.out.println("GameActivity.onStop(), to solve: " +mTilesToSolve + " turned: "+mTurnedTiles);
+		System.out.println("GameActivity.onStop(), to solve: " + mTilesToSolve + " turned: " + mTurnedTiles);
 	}
-	
+
 	@Override
 	protected void onRestart() {
 		super.onRestart();
@@ -320,15 +307,12 @@ public class GameActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		new AlertDialog.Builder(this)
-				.setMessage("Quit Memo?")
-				.setCancelable(false)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								GameActivity.this.finish();
-							}
-						}).setNegativeButton("No", null).show();
+		new AlertDialog.Builder(this).setMessage("Quit Memo?").setCancelable(false)
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						GameActivity.this.finish();
+					}
+				}).setNegativeButton("No", null).show();
 	}
 
 	@Override
@@ -354,20 +338,28 @@ public class GameActivity extends Activity {
 			startActivity(intent);
 			break;
 		case R.id.menu_item_share:
-			Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-			shareIntent.setType("text/plain");
-			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Hello :-) ");
-			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Just played Memo Game. I think you would love it, too! You can get it here: www");
-			startActivity(Intent.createChooser(shareIntent, "How do you want to share?"));
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+				Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+				shareIntent.setType("text/plain");
+				shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, SHARE_EXTRA_SUBJECT);
+				shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, SHARE_EXTRA_TEXT);
+				startActivity(Intent.createChooser(shareIntent, "How do you want to share?"));
+			}
 			break;
+		case R.id.menu_item_info:
+			// System.out.println("Game properties.");
+			intent = new Intent(getApplicationContext(), PropertiesActivity.class);
+			startActivity(intent);
+
+			break;
+
 		default:
 			break;
 		}
 		return true;
 	}
 
-	private void startNewGame(GridView gridview, String difficulty,
-			int numColumns, int tilesCount) {
+	private void startNewGame(GridView gridview, String difficulty, int numColumns, int tilesCount) {
 		mGameDifficulty = difficulty;
 		gridview.setNumColumns(numColumns);
 		mTilesToSolve = tilesCount;
