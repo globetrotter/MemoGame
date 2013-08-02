@@ -88,12 +88,13 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f060000;
+        public static final int app_quit=0x7f06000d;
         public static final int menu_settings=0x7f060001;
-        public static final int properties_about=0x7f06000f;
-        public static final int properties_copyright=0x7f060011;
-        public static final int properties_resources=0x7f060010;
-        public static final int score_chal=0x7f06000e;
-        public static final int score_easy=0x7f06000d;
+        public static final int properties_about=0x7f060010;
+        public static final int properties_copyright=0x7f060012;
+        public static final int properties_resources=0x7f060011;
+        public static final int score_chal=0x7f06000f;
+        public static final int score_easy=0x7f06000e;
         public static final int title_action_info=0x7f06000c;
         public static final int title_action_order=0x7f06000b;
         public static final int title_action_scores=0x7f06000a;

@@ -11,7 +11,7 @@
         <Button
             android:id="@+id/button1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:autoLink="web"
             android:background="@color/white"
             android:clickable="false"
@@ -23,11 +23,12 @@
         <Button
             android:id="@+id/button4"
             android:layout_width="match_parent"
-            android:layout_height="294dp"
+            android:layout_height="280dp"
             android:background="@color/white"
             android:clickable="false"
-            android:drawableTop="@drawable/back_card"
+            android:drawableTop="@drawable/card_6"
             android:focusable="false"
+            android:gravity="center_vertical"
             android:longClickable="false"
             android:textColor="@color/background_main" />
 
@@ -43,7 +44,7 @@
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="58dp"
             android:background="@color/end_blue"
             android:clickable="false"
             android:focusable="false"

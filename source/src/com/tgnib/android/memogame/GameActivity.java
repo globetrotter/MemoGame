@@ -109,15 +109,20 @@ public class GameActivity extends Activity {
 				} else {
 					writeDataToExternalStorage(mTurnedTiles, endTime, "Scores_Chall.csv");
 				}
+				int canYouDoItInSteps = mTurnedTiles - optimalSteps;
+				String gameEndMessage = mTurnedTiles + " turned tiles. You are the winner!";
+				if (canYouDoItInSteps > 0) {
+					gameEndMessage = mTurnedTiles + " turned tiles. Can you do it with " + canYouDoItInSteps+" less turns?";
+				}
 				new AlertDialog.Builder(GameActivity.this)
-						.setMessage(mTurnedTiles + " turned tiles. Optimal steps: " + optimalSteps)
-						.setCancelable(false).setPositiveButton("Scores", new DialogInterface.OnClickListener() {
+						.setMessage(gameEndMessage)
+						.setCancelable(false).setPositiveButton("Later. Show me scores", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 
 								Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
 								startActivity(intent);
 							}
-						}).setNegativeButton("Play again", new DialogInterface.OnClickListener() {
+						}).setNegativeButton("Yes!", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								GameActivity.this.onStart();
 							}
@@ -307,7 +312,7 @@ public class GameActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		new AlertDialog.Builder(this).setMessage("Quit Memo?").setCancelable(false)
+		new AlertDialog.Builder(this).setMessage(R.string.app_quit).setCancelable(false)
 				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						GameActivity.this.finish();
