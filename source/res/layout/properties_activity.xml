@@ -35,7 +35,7 @@
         <Button
             android:id="@+id/button3"
             android:layout_width="match_parent"
-            android:layout_height="116dp"
+            android:layout_height="101dp"
             android:background="@color/white"
             android:longClickable="false"
             android:text="@string/properties_resources"

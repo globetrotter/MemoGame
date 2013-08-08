@@ -12,8 +12,13 @@
         android:id="@+id/text_scores_easy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="Arial"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="@string/score_easy"
-		android:background="@color/green1"/>
+        android:textColor="@color/blue"
+        android:textSize="15dp"
+        android:typeface="sans" />
 
     <ListView
         android:id="@+id/scores_chal"
@@ -30,9 +35,14 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/scores_chal"
         android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:fontFamily="Arial"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="@string/score_chal"
-        android:background="@color/green2"/>
-    
+        android:textColor="@color/blue"
+        android:textSize="15dp"
+        android:typeface="sans" />
 
     <ListView
         android:id="@+id/scores_easy"

@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tgnib.android.memogame"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="3"
+    android:versionName="1.2" >
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="false"
         android:icon="@drawable/logo"
-        android:theme="@style/AppTheme" 
-        android:label="@string/app_name">
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <meta-data android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/app_id"/>
+        
         <activity
             android:name="com.tgnib.android.memogame.GameActivity"
-            android:label="@string/title_activity_game"
-             >
+            android:label="@string/title_activity_game" 
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,7 +42,17 @@
         <activity
             android:name="com.tgnib.android.memogame.PropertiesActivity"
             android:label="@string/title_activity_info" >
-        </activity>        
+        </activity>
+        <activity
+            android:name="com.tgnib.android.memogame.BitmapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_bitmap"
+            android:theme="@style/FullscreenTheme" >
+            <intent-filter>
+                <action android:name="com.tgnib.android.BitmapActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

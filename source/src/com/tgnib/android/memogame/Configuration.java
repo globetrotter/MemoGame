@@ -36,15 +36,7 @@ public class Configuration {
 			add(R.drawable.card_10);
 			add(R.drawable.card_11);
 			add(R.drawable.card_14);
-			add(R.drawable.card_19);			
-
-			add(R.drawable.card_31);
-			add(R.drawable.card_32);
-			add(R.drawable.card_33);
-			add(R.drawable.card_34);
-			add(R.drawable.card_35);
-			add(R.drawable.card_36);
-			add(R.drawable.card_37);
+			add(R.drawable.card_19);
 		}
 	};
 

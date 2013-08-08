@@ -14,13 +14,15 @@
     <string name="title_action_scores">Scores</string>
     <string name="title_action_order">Customize</string>
     <string name="title_action_info">Info</string>
-    
-    <string name="app_quit">Quit Memo?</string>        
+    <string name="app_quit">Quit Memo?</string>
     <string name="score_easy">Latest scores in: Easy</string>
     <string name="score_chal">Latest scores in: Challenge</string>
-    
-    <string name="properties_about">Built with passion. \n We would appreciate the feedback! \n Visit us at: <a href="www.tgn-ib.com">www.tgn-ib.com</a></string> 
-	<string name="properties_resources">All used images are own photos.</string>
-	<string name="properties_copyright">\@ 2013 All rights reserved \n Toth-Gati Norbert Ingenieurbuero</string>    
+    <string name="properties_about">Built with passion. \n We would appreciate the feedback! \n Visit us at: <a href="www.tgn-ib.com">www.tgn-ib.com</a></string>
+    <string name="properties_resources">All used images are own photos.</string>
+    <string name="properties_copyright">\@ 2013 All rights reserved \n Toth-Gati Norbert Ingenieurbuero</string>
+    <string name="title_activity_bitmap">Customize Memo</string>
+    <string name="send_order">Order now</string>
+    <string name="order_content">Order your Memo now</string>
+    <string name="order_content_details">You have the possibility to get a personalized Memory Game with the images you want. You can order an application and surprise somebody with it. Just get in touch!\n\n Download from Google Play Store.</string>
 
 </resources>

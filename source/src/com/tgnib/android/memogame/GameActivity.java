@@ -33,8 +33,11 @@ import android.widget.ShareActionProvider;
 
 public class GameActivity extends Activity {
 
-	private static final String SHARE_EXTRA_SUBJECT = "Memory Game - You will love it!";
-	private static final String SHARE_EXTRA_TEXT = "Just played \"Memory Game\" - You will love it! \n Link to Google Play Store:\n http://goo.gl/ePTRgn";
+	private static final int SELECT_PHOTO = 100;
+	
+	private static final String SHARE_EXTRA_SUBJECT = "Memo - You will love it!";
+	private static final String SHARE_EXTRA_TEXT = "Just played \"Memo\" - You will love it! \n Link to Google Play Store:\n http://goo.gl/KCEr15";
+
 
 	private static final Configuration CFG = new Configuration();
 	public static final int BACK_CARD = R.drawable.back_card;
@@ -112,21 +115,30 @@ public class GameActivity extends Activity {
 				int canYouDoItInSteps = mTurnedTiles - optimalSteps;
 				String gameEndMessage = mTurnedTiles + " turned tiles. You are the winner!";
 				if (canYouDoItInSteps > 0) {
-					gameEndMessage = mTurnedTiles + " turned tiles. Can you do it with " + canYouDoItInSteps+" less turns?";
-				}
-				new AlertDialog.Builder(GameActivity.this)
-						.setMessage(gameEndMessage)
-						.setCancelable(false).setPositiveButton("Later. Show me scores", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
+					gameEndMessage = mTurnedTiles + " turned tiles. Can you do it with " + canYouDoItInSteps
+							+ " less turns?";
+					new AlertDialog.Builder(GameActivity.this).setMessage(gameEndMessage).setCancelable(false)
+							.setPositiveButton("Later. Show me scores", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
 
-								Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
-								startActivity(intent);
-							}
-						}).setNegativeButton("Yes!", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								GameActivity.this.onStart();
-							}
-						}).show();
+									Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
+									startActivity(intent);
+								}
+							}).setNegativeButton("Yes, let's try!", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									GameActivity.this.onStart();
+								}
+							}).show();
+				} else {
+					new AlertDialog.Builder(GameActivity.this).setMessage(gameEndMessage).setCancelable(false)
+							.setPositiveButton("Show me scores", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+
+									Intent intent = new Intent(getApplicationContext(), ScoresActivity.class);
+									startActivity(intent);
+								}
+							}).show();
+				}
 			}
 		}
 
@@ -172,8 +184,8 @@ public class GameActivity extends Activity {
 					SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
 					String formattedDate = df.format(c.getTime());
 
-					fw.write("Name; " + String.valueOf(optimalSteps) + " steps; " + (duration / 1000) + " sec; "
-							+ formattedDate + "\n");
+					fw.write("Solved in " + String.valueOf(optimalSteps) + " steps, in " + (duration / 1000)
+							+ " seconds\n");
 					fw.write(s2 + "\n");
 					fw.write(s3 + "\n");
 					fw.write(s4 + "\n");
@@ -351,6 +363,10 @@ public class GameActivity extends Activity {
 				startActivity(Intent.createChooser(shareIntent, "How do you want to share?"));
 			}
 			break;
+//		case R.id.menu_item_order:
+//			intent = new Intent(getApplicationContext(), BitmapActivity.class);
+//			startActivity(intent);
+//			break;
 		case R.id.menu_item_info:
 			// System.out.println("Game properties.");
 			intent = new Intent(getApplicationContext(), PropertiesActivity.class);
@@ -372,6 +388,21 @@ public class GameActivity extends Activity {
 		mPreviousPosition = 0;
 		mPreviousTile = 0;
 		mPreviousView = null;
+		mTurnedTiles = 0;
+		mStartTime = System.currentTimeMillis();
 	}
-
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  super.onActivityResult(requestCode, resultCode, data);
+	  switch(requestCode) {
+	    case (SELECT_PHOTO) : {
+	      if (resultCode == Activity.RESULT_OK) {
+	    	  String result = data.getStringExtra("returnKey1");
+	    	  System.out.println("returnKey1 " + result);
+	      }
+	      break;
+	    } 
+	  }
+	}	
 }

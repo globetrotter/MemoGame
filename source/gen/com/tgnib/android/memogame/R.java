@@ -9,11 +9,21 @@ package com.tgnib.android.memogame;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int buttonBarButtonStyle=0x7f010001;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int buttonBarStyle=0x7f010000;
     }
     public static final class color {
         public static final int background_main=0x7f040000;
         public static final int black=0x7f040002;
-        public static final int end_blue=0x7f040008;
+        public static final int black_overlay=0x7f04000a;
+        public static final int blue=0x7f040008;
+        public static final int end_blue=0x7f040009;
         public static final int gray=0x7f040003;
         public static final int green1=0x7f040006;
         public static final int green2=0x7f040007;
@@ -41,73 +51,128 @@ public final class R {
         public static final int card_19=0x7f020004;
         public static final int card_2=0x7f020005;
         public static final int card_3=0x7f020006;
-        public static final int card_31=0x7f020007;
-        public static final int card_32=0x7f020008;
-        public static final int card_33=0x7f020009;
-        public static final int card_34=0x7f02000a;
-        public static final int card_35=0x7f02000b;
-        public static final int card_36=0x7f02000c;
-        public static final int card_37=0x7f02000d;
-        public static final int card_4=0x7f02000e;
-        public static final int card_5=0x7f02000f;
-        public static final int card_6=0x7f020010;
-        public static final int card_7=0x7f020011;
-        public static final int card_8=0x7f020012;
-        public static final int card_9=0x7f020013;
-        public static final int ic_action_search=0x7f020014;
-        public static final int ic_launcher=0x7f020015;
-        public static final int layout_selector=0x7f020016;
-        public static final int logo=0x7f020017;
+        public static final int card_4=0x7f020007;
+        public static final int card_5=0x7f020008;
+        public static final int card_6=0x7f020009;
+        public static final int card_7=0x7f02000a;
+        public static final int card_8=0x7f02000b;
+        public static final int card_9=0x7f02000c;
+        public static final int ic_action_search=0x7f02000d;
+        public static final int ic_launcher=0x7f02000e;
+        public static final int layout_selector=0x7f02000f;
+        public static final int logo=0x7f020010;
+        public static final int logo_store=0x7f020011;
     }
     public static final class id {
-        public static final int button1=0x7f090005;
-        public static final int button2=0x7f090008;
-        public static final int button3=0x7f090007;
-        public static final int button4=0x7f090006;
-        public static final int game_grid_view=0x7f090000;
-        public static final int menu_item_difficulty_easy=0x7f090009;
-        public static final int menu_item_difficulty_normal=0x7f09000a;
-        public static final int menu_item_info=0x7f09000e;
-        public static final int menu_item_order=0x7f09000d;
-        public static final int menu_item_score_share=0x7f09000f;
-        public static final int menu_item_scores=0x7f09000c;
-        public static final int menu_item_share=0x7f09000b;
-        public static final int scores_chal=0x7f090002;
-        public static final int scores_easy=0x7f090004;
-        public static final int text_scores_chal=0x7f090003;
-        public static final int text_scores_easy=0x7f090001;
+        public static final int ImageView4=0x7f090005;
+        public static final int ImageView5=0x7f090006;
+        public static final int ImageView6=0x7f090007;
+        public static final int button1=0x7f09000f;
+        public static final int button2=0x7f090012;
+        public static final int button3=0x7f090011;
+        public static final int button4=0x7f090010;
+        public static final int dummy_button=0x7f090001;
+        public static final int editText1=0x7f090009;
+        public static final int fullscreen_content=0x7f090008;
+        public static final int fullscreen_content_controls=0x7f090000;
+        public static final int game_grid_view=0x7f09000a;
+        public static final int imageView1=0x7f090002;
+        public static final int imageView2=0x7f090003;
+        public static final int imageView3=0x7f090004;
+        public static final int menu_item_difficulty_easy=0x7f090013;
+        public static final int menu_item_difficulty_normal=0x7f090014;
+        public static final int menu_item_info=0x7f090017;
+        public static final int menu_item_score_share=0x7f090018;
+        public static final int menu_item_scores=0x7f090016;
+        public static final int menu_item_share=0x7f090015;
+        public static final int scores_chal=0x7f09000c;
+        public static final int scores_easy=0x7f09000e;
+        public static final int text_scores_chal=0x7f09000d;
+        public static final int text_scores_easy=0x7f09000b;
     }
     public static final class layout {
-        public static final int activity_game=0x7f030000;
-        public static final int activity_scores=0x7f030001;
-        public static final int properties_activity=0x7f030002;
+        public static final int activity_bitmap=0x7f030000;
+        public static final int activity_game=0x7f030001;
+        public static final int activity_scores=0x7f030002;
+        public static final int properties_activity=0x7f030003;
     }
     public static final class menu {
         public static final int game_activity_menu=0x7f080000;
         public static final int scores_menu=0x7f080001;
     }
     public static final class string {
-        public static final int app_name=0x7f060000;
-        public static final int app_quit=0x7f06000d;
-        public static final int menu_settings=0x7f060001;
-        public static final int properties_about=0x7f060010;
-        public static final int properties_copyright=0x7f060012;
-        public static final int properties_resources=0x7f060011;
-        public static final int score_chal=0x7f06000f;
-        public static final int score_easy=0x7f06000e;
-        public static final int title_action_info=0x7f06000c;
-        public static final int title_action_order=0x7f06000b;
-        public static final int title_action_scores=0x7f06000a;
-        public static final int title_action_share=0x7f060008;
-        public static final int title_activity_game=0x7f060002;
-        public static final int title_activity_game_settings=0x7f060005;
-        public static final int title_activity_info=0x7f060007;
-        public static final int title_activity_scores=0x7f060006;
-        public static final int title_menu_difficulty_easy=0x7f060003;
-        public static final int title_menu_difficulty_normal=0x7f060004;
-        public static final int title_score_share=0x7f060009;
+        public static final int app_id=0x7f060000;
+        public static final int app_name=0x7f060001;
+        public static final int app_quit=0x7f06000e;
+        public static final int menu_settings=0x7f060002;
+        public static final int order_content=0x7f060016;
+        public static final int order_content_details=0x7f060017;
+        public static final int properties_about=0x7f060011;
+        public static final int properties_copyright=0x7f060013;
+        public static final int properties_resources=0x7f060012;
+        public static final int score_chal=0x7f060010;
+        public static final int score_easy=0x7f06000f;
+        public static final int send_order=0x7f060015;
+        public static final int title_action_info=0x7f06000d;
+        public static final int title_action_order=0x7f06000c;
+        public static final int title_action_scores=0x7f06000b;
+        public static final int title_action_share=0x7f060009;
+        public static final int title_activity_bitmap=0x7f060014;
+        public static final int title_activity_game=0x7f060003;
+        public static final int title_activity_game_settings=0x7f060006;
+        public static final int title_activity_info=0x7f060008;
+        public static final int title_activity_scores=0x7f060007;
+        public static final int title_menu_difficulty_easy=0x7f060004;
+        public static final int title_menu_difficulty_normal=0x7f060005;
+        public static final int title_score_share=0x7f06000a;
     }
     public static final class style {
         public static final int AppTheme=0x7f070000;
+        public static final int ButtonBar=0x7f070002;
+        public static final int ButtonBarButton=0x7f070003;
+        public static final int FullscreenActionBarStyle=0x7f070004;
+        public static final int FullscreenTheme=0x7f070001;
     }
+    public static final class styleable {
+        /** 
+         Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels.
+    
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ButtonBarContainerTheme_buttonBarButtonStyle com.tgnib.android.memogame:buttonBarButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #ButtonBarContainerTheme_buttonBarStyle com.tgnib.android.memogame:buttonBarStyle}</code></td><td></td></tr>
+           </table>
+           @see #ButtonBarContainerTheme_buttonBarButtonStyle
+           @see #ButtonBarContainerTheme_buttonBarStyle
+         */
+        public static final int[] ButtonBarContainerTheme = {
+            0x7f010000, 0x7f010001
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.tgnib.android.memogame.R.attr#buttonBarButtonStyle}
+          attribute's value can be found in the {@link #ButtonBarContainerTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.tgnib.android.memogame:buttonBarButtonStyle
+        */
+        public static final int ButtonBarContainerTheme_buttonBarButtonStyle = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.tgnib.android.memogame.R.attr#buttonBarStyle}
+          attribute's value can be found in the {@link #ButtonBarContainerTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.tgnib.android.memogame:buttonBarStyle
+        */
+        public static final int ButtonBarContainerTheme_buttonBarStyle = 0;
+    };
 }

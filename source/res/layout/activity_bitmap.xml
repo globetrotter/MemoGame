@@ -1,0 +1,100 @@
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context=".BitmapActivity" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" >
+
+        <LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent" >
+
+            <Button
+                android:id="@+id/dummy_button"
+                style="?buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:text="@string/send_order" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="left"
+            android:src="@drawable/back_card" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center|top"
+            android:src="@drawable/back_card" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="right"
+            android:src="@drawable/back_card" />
+
+        <ImageView
+            android:id="@+id/ImageView4"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="left|bottom"
+            android:src="@drawable/back_card" 
+            android:paddingBottom="50dp" />
+
+        <ImageView
+            android:id="@+id/ImageView5"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center|bottom"
+            android:src="@drawable/back_card"
+            android:paddingBottom="50dp" />
+
+        <ImageView
+            android:id="@+id/ImageView6"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="right|bottom"
+            android:src="@drawable/back_card" 
+            android:paddingBottom="50dp" />
+
+        <TextView
+            android:id="@+id/fullscreen_content"
+            android:layout_width="match_parent"
+            android:layout_height="471dp"
+            android:gravity="center"
+            android:keepScreenOn="true"
+            android:text="@string/order_content"
+            android:textColor="#33b5e5"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="468dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="@string/order_content_details" />
+
+    </FrameLayout>
+
+</FrameLayout>
